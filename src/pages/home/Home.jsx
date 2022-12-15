@@ -5,6 +5,7 @@ import { Box, Button, Flex } from "@chakra-ui/react";
 
 import { GlobalContext } from '../../context/global/Global';
 import { Input, Number, Select, Textarea } from '../../components';
+import { useDoRequest } from './../../hooks/';
 
 const validationSchema = Yup.object().shape({
     input: Yup.string()
@@ -23,7 +24,7 @@ const validationSchema = Yup.object().shape({
 function Home() {
     const first = useContext(GlobalContext);
 
-    console.log(first)
+    const Teste = useDoRequest((api) => api.User.Login);
 
     const formik = useFormik({
         initialValues: {
@@ -37,6 +38,14 @@ function Home() {
             alert(JSON.stringify(values, null, 2));
         }
     });
+
+    function teste() {
+        Teste.doRequest(null).then((res) => {
+            console.log('Salve')
+        }).catch(() => {
+            console.log('Salve')
+        });
+    }
 
     return (
         <Flex bg="gray.100" align="center" justify="center" h="100vh">
@@ -65,10 +74,10 @@ function Home() {
                         name="select"
                         formik={formik}
                         options={[
-                            {value: 1, label: 'teste1'},
-                            {value: 2, label: 'teste2'},
-                            {value: 3, label: 'teste3'},
-                            {value: 4, label: 'teste4'},
+                            { value: 1, label: 'teste1' },
+                            { value: 2, label: 'teste2' },
+                            { value: 3, label: 'teste3' },
+                            { value: 4, label: 'teste4' },
                         ]}
                     />
 
