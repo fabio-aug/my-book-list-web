@@ -1,15 +1,19 @@
 import React from 'react';
+import { ChakraProvider } from '@chakra-ui/react';
+
 import Routes from './routes/Routes';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-import { ChakraProvider } from '@chakra-ui/react';
+import { Global } from './context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <React.StrictMode>
         <ChakraProvider>
-            <Routes />
+            <Global>
+                <Routes />
+            </Global>
         </ChakraProvider>
     </React.StrictMode>
 );

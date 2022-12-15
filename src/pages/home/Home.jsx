@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import * as Yup from 'yup';
 import { useFormik } from "formik";
 import { Box, Button, Flex } from "@chakra-ui/react";
 
+import { GlobalContext } from '../../context/global/Global';
 import { Input, Number, Select, Textarea } from '../../components';
 
 const validationSchema = Yup.object().shape({
@@ -20,6 +21,10 @@ const validationSchema = Yup.object().shape({
 });
 
 function Home() {
+    const first = useContext(GlobalContext);
+
+    console.log(first)
+
     const formik = useFormik({
         initialValues: {
             input: "",
@@ -73,7 +78,7 @@ function Home() {
                 </form>
             </Box>
         </Flex>
-    )
+    );
 }
 
 export default Home;
