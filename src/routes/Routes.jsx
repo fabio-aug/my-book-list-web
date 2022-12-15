@@ -18,10 +18,10 @@ function Routes() {
             <AppRoutes>
                 <Route path="/" element={<MainLayout />} >
                     <Route path="/home" element={<Home />} />
+                    <Route path="/" element={<Navigate to="/home" />} />
                 </Route>
 
-                <Route path="*" element={<Navigate to="/home" />} />
-                <Route path="/" element={<Navigate to="/home" />} />
+                <Route path="*" element={<Navigate to="/" />} />
             </AppRoutes>
         </BrowserRouter>
     );

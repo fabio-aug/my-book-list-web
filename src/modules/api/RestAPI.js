@@ -1,4 +1,4 @@
-export default class Api {
+export default class RestAPI {
 
     static URL = "https://localhost:PORTA";
     static TOKEN = "";
@@ -21,4 +21,11 @@ export default class Api {
     static httpDelete = (url) => this.httpMethod("DELETE", url).then((res) => res.json());
 
     static setToken = (token) => this.TOKEN = `Bearer ${token}`;
+
+    // =====================================================================
+
+    static URL_USER = `${RestAPI.URL}/User`;
+
+    static login = () => RestAPI.httpGet(`${RestAPI.URL_USER}/login`);
+
 }

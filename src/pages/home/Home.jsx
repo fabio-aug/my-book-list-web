@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
 import { useFormik } from "formik";
 import { Box, Button, Flex } from "@chakra-ui/react";
 
-import { GlobalContext } from '../../context/global/Global';
+import { RestAPI } from '../../modules';
 import { Input, Number, Select, Textarea } from '../../components';
-import { useDoRequest } from './../../hooks/';
 
 const validationSchema = Yup.object().shape({
     input: Yup.string()
@@ -22,10 +21,6 @@ const validationSchema = Yup.object().shape({
 });
 
 function Home() {
-    const first = useContext(GlobalContext);
-
-    const Teste = useDoRequest((api) => api.User.Login);
-
     const formik = useFormik({
         initialValues: {
             input: "",
@@ -40,10 +35,10 @@ function Home() {
     });
 
     function teste() {
-        Teste.doRequest(null).then((res) => {
-            console.log('Salve')
-        }).catch(() => {
-            console.log('Salve')
+        RestAPI.login(null).then((res) => {
+            console.log('foi')
+        }).catch((erro) => {
+            console.log('erro', erro)
         });
     }
 
@@ -81,7 +76,7 @@ function Home() {
                         ]}
                     />
 
-                    <Button type="submit" colorScheme="purple" width="full">
+                    <Button onClick={teste} colorScheme="purple" width="full">
                         Login
                     </Button>
                 </form>

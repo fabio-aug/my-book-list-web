@@ -1,9 +1,7 @@
-import Api from "./api/Api";
+import RestAPI from "./api/RestAPI";
 import Mask from "./mask/Mask";
-import Services from "./services";
 
 export {
-    Api,
-    Mask,
-    Services
+    RestAPI,
+    Mask
 }
