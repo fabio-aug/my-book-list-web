@@ -3,7 +3,6 @@ import * as Yup from 'yup';
 import { useFormik } from "formik";
 import { Box, Button, Flex } from "@chakra-ui/react";
 
-import { RestAPI } from '../../modules';
 import { Input, Number, Select, Textarea } from '../../components';
 
 const validationSchema = Yup.object().shape({
@@ -33,14 +32,6 @@ function Home() {
             alert(JSON.stringify(values, null, 2));
         }
     });
-
-    function teste() {
-        RestAPI.login(null).then((res) => {
-            console.log('foi')
-        }).catch((erro) => {
-            console.log('erro', erro)
-        });
-    }
 
     return (
         <Flex bg="gray.100" align="center" justify="center" h="100vh">
@@ -76,7 +67,7 @@ function Home() {
                         ]}
                     />
 
-                    <Button onClick={teste} colorScheme="purple" width="full">
+                    <Button type="submit" colorScheme="purple" width="full">
                         Login
                     </Button>
                 </form>
