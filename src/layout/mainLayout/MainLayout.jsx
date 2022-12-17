@@ -1,12 +1,14 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
+import { Header, Footer } from './components';
+
 function MainLayout() {
     return (
         <React.Fragment>
-            <div> HEADER </div>
-            <div> <Outlet /> </div>
-            <div> FOOTER </div>
+            <Header />
+            <Outlet />
+            <Footer />
         </React.Fragment>
     );
 }
