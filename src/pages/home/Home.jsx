@@ -8,9 +8,12 @@ import { useSnackbar } from 'hooks';
 import { Page, Modal } from 'components';
 import { Container } from './Home.style';
 
+import { FormikInput, FormikSelect, FormikDatepicker } from 'components/formElements';
+
 const validationSchema = Yup.object({
-    email: Yup.string().email('Digite um email válido').max(255).required('Email é obrigatório'),
-    password: Yup.string().max(255).required('Senha é obrigatória')
+    input: Yup.string().max(255).required('Este campo é obrigatório'),
+    select: Yup.string().required('Este campo é obrigatório'),
+    datepicker: Yup.date().required('Este campo é obrigatório')
 });
 
 function Home() {
@@ -18,14 +21,17 @@ function Home() {
 
     const [modalStatus, setModalStatus] = useState(false);
 
-    const handleSignIn = (values) => {
+    const handleSignIn = (values, formikHelpers) => {
         console.log(values)
+        formikHelpers.setSubmitting(false);
+        formikHelpers.resetForm();
     }
 
     const formik = useFormik({
         initialValues: {
-            email: 'example@example.io',
-            password: 'Password123'
+            input: '',
+            select: '',
+            datepicker: new Date()
         },
         validationSchema,
         onSubmit: handleSignIn
@@ -103,7 +109,36 @@ function Home() {
             </Container>
 
             <Container>
-                <form onSubmit={formik.handleSubmit}>
+                <form
+                    onSubmit={formik.handleSubmit}
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column'
+                    }}
+                >
+
+                    <FormikInput
+                        label="Input"
+                        name="input"
+                        formik={formik}
+                    />
+
+                    <FormikSelect
+                        label="Select"
+                        name="select"
+                        formik={formik}
+                        options={[
+                            { value: 1, label: 'Valor 1' },
+                            { value: 2, label: 'Valor 2' }
+                        ]}
+                    />
+
+                    <FormikDatepicker
+                        label="Date picker"
+                        name="datepicker"
+                        formik={formik}
+                    />
+
                     <Box my={2}>
                         <Button
                             color="primary"
@@ -118,7 +153,7 @@ function Home() {
                     </Box>
                 </form>
             </Container>
-        </Page>
+        </Page >
     )
 }
 
