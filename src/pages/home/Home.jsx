@@ -101,7 +101,10 @@ function Home() {
                     open={modalStatus}
                     onClose={() => setModalStatus(false)}
                     content={
-                        <div>
+                        <div style={{
+                            height: '300px',
+                            width: '300px'
+                        }}>
                             Modal Home
                         </div>
                     }
