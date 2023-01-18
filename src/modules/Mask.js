@@ -1,19 +1,19 @@
 const masks = {
-    uf: "##",
-    hour: "##:##",
-    date: "##/##/####",
-    date_hour: "##/##/#### ##:##",
-    phone: "(##) ####-####",
-    cellphone: "(##) #####-####",
-    rg: "##.###.###",
-    cpf: "###.###.###-##",
-    cnpj: "##.###.###/####-##",
-    zipcode: "#####-###",
-    percentage: "##.##",
-    card: "#### #### #### ####",
-    card_expiration_1: "##/####",
-    card_expiration_2: "##/##",
-    cvv: "###"
+    uf: '##',
+    hour: '##:##',
+    date: '##/##/####',
+    date_hour: '##/##/#### ##:##',
+    phone: '(##) ####-####',
+    cellphone: '(##) #####-####',
+    rg: '##.###.###',
+    cpf: '###.###.###-##',
+    cnpj: '##.###.###/####-##',
+    zipcode: '#####-###',
+    percentage: '##.##',
+    card: '#### #### #### ####',
+    card_expiration_1: '##/####',
+    card_expiration_2: '##/##',
+    cvv: '###'
 }
 
 const regex = {
@@ -34,10 +34,10 @@ const regex = {
  * @returns {String} Unmasked text
  */
 function unmask(text) {
-    return text.replace(/\./g, "").replace(/-/g, "")
-        .replace(/\//g, "").replace(/\(/g, "")
-        .replace(/\)/g, "").replace(/:/g, "")
-        .replace(/ /g, "").replace(/,/g, "");
+    return text.replace(/\./g, '').replace(/-/g, '')
+        .replace(/\//g, '').replace(/\(/g, '')
+        .replace(/\)/g, '').replace(/:/g, '')
+        .replace(/ /g, '').replace(/,/g, '');
 }
 
 /**
@@ -49,7 +49,7 @@ function unmask(text) {
 function applyMask(mask, text) {
     if (mask?.length > 0 && text?.length > 0) {
         text = unmask(text);
-        let out = "";
+        let out = '';
         let i = 0;
         let j = 0;
         while (i < mask.length && j < text.length) {
@@ -72,8 +72,8 @@ function applyMask(mask, text) {
  * @returns {String} Masked text
  */
 function formatGenericPhone(text) {
-    if (text.length <= masks.PHONE.length) return applyMask(masks.PHONE, text);
-    else return applyMask(masks.CELLPHONE, text);
+    if (text.length <= masks.phone.length) return applyMask(masks.phone, text);
+    else return applyMask(masks.cellphone, text);
 }
 
 /**
@@ -82,8 +82,8 @@ function formatGenericPhone(text) {
  * @returns {String} Masked text
  */
 function formatCpfCnpj(text) {
-    if (text.length <= masks.CPF.length) return applyMask(masks.CPF, text);
-    else return applyMask(masks.CNPJ, text);
+    if (text.length <= masks.cpf.length) return applyMask(masks.cpf, text);
+    else return applyMask(masks.cnpj, text);
 }
 
 /**
@@ -94,8 +94,8 @@ function formatCpfCnpj(text) {
  * @param {String} prefix Prefix of the decimal
  * @returns {String} Masked text
  */
-function formatDecimal(value, min, max, prefix = "") {
-    if (typeof (value) !== "string") return "";
+function formatDecimal(value, min, max, prefix = '') {
+    if (typeof (value) !== 'string') return '';
     value = unmaskDecimal(value, min, max, prefix);
     value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
     if (prefix) value = `${prefix} ${value}`;
@@ -110,8 +110,8 @@ function formatDecimal(value, min, max, prefix = "") {
  * @param {String} prefix Prefix of the decimal
  * @returns {String} Unmasked text
  */
-function unmaskDecimal(value, min, max, prefix = "") {
-    value = unmask(value.replace(prefix, "").replace("^0+", ""));
+function unmaskDecimal(value, min, max, prefix = '') {
+    value = unmask(value.replace(prefix, '').replace('^0+', ''));
     value = NaN0(Number(value)) / 100;
     if (min && (value < min)) return min.toFixed(2);
     if (max && (value > max)) return max.toFixed(2);
@@ -122,27 +122,27 @@ function NaN0(value) {
     return isNaN(value) ? 0 : value;
 };
 
-function formatBase64(base64, format = "png") {
+function formatBase64(base64, format = 'png') {
     switch (format) {
         case 'png':
             return `data:image/${format};base64,${base64}`;
-        case "mpeg":
-        case "mp4":
-        case "mp3":
-        case "m4a":
+        case 'mpeg':
+        case 'mp4':
+        case 'mp3':
+        case 'm4a':
             return `data:audio/${format};base64,${base64}`;
         default: return base64;
     }
 }
 
 function splitBase64(str) {
-    const [header, base64] = str.split(",");
+    const [header, base64] = str.split(',');
     return { header, base64 };
 }
 
 function normalizeStr(str) {
-    if (!str) return "";
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    if (!str) return '';
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
 
 function escapeHtml(str) {

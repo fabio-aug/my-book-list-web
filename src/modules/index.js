@@ -1,5 +1,5 @@
-import RestApi from "./RestApi";
-import * as Mask from "./Mask";
+import RestApi from './RestApi';
+import * as Mask from './Mask';
 
 export {
     Mask,

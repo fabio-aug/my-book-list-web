@@ -12,7 +12,7 @@ function FormikDatepicker({ name, formik, options, label, ...rest }) {
                 label={label}
                 value={formik.values[name]}
                 onChange={(e) => formik.setFieldValue(name, e)}
-                inputFormat="dd/MM/yyyy"
+                inputFormat='dd/MM/yyyy'
                 renderInput={(params) => (
                     <TextField
                         error={isError}

@@ -38,7 +38,7 @@ function Home() {
     });
 
     return (
-        <Page title="Home">
+        <Page title='Home'>
             <Paper
                 sx={{
                     position: 'relative',
@@ -51,7 +51,7 @@ function Home() {
                     backgroundImage: `url(${Image.Estante})`,
                 }}
             >
-                {<img style={{ display: 'none' }} src={Image.Estante} alt={"Estante de livros"} />}
+                {<img style={{ display: 'none' }} src={Image.Estante} alt={'Estante de livros'} />}
                 <Box
                     sx={{
                         position: 'absolute',
@@ -71,10 +71,10 @@ function Home() {
                                 pr: { md: 0 },
                             }}
                         >
-                            <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+                            <Typography component='h1' variant='h3' color='inherit' gutterBottom>
                                 My Book List
                             </Typography>
-                            <Typography variant="h5" color="inherit" paragraph>
+                            <Typography variant='h5' color='inherit' paragraph>
                                 Listas e Livros para todos os gostos.
                             </Typography>
                         </Box>
@@ -85,7 +85,7 @@ function Home() {
             <Container>
                 <Button variant='contained'
                     onClick={() => {
-                        snackbar("Teste").success();
+                        snackbar('Teste').success();
                     }}
                 >
                     Alert
@@ -97,7 +97,7 @@ function Home() {
                 </Button>
 
                 <Modal
-                    title="Modal Home"
+                    title='Modal Home'
                     open={modalStatus}
                     onClose={() => setModalStatus(false)}
                     content={
@@ -121,14 +121,14 @@ function Home() {
                 >
 
                     <FormikInput
-                        label="Input"
-                        name="input"
+                        label='Input'
+                        name='input'
                         formik={formik}
                     />
 
                     <FormikSelect
-                        label="Select"
-                        name="select"
+                        label='Select'
+                        name='select'
                         formik={formik}
                         options={[
                             { value: 1, label: 'Valor 1' },
@@ -137,19 +137,19 @@ function Home() {
                     />
 
                     <FormikDatepicker
-                        label="Date picker"
-                        name="datepicker"
+                        label='Date picker'
+                        name='datepicker'
                         formik={formik}
                     />
 
                     <Box my={2}>
                         <Button
-                            color="primary"
+                            color='primary'
                             disabled={formik.isSubmitting}
                             fullWidth
-                            size="large"
-                            type="submit"
-                            variant="contained"
+                            size='large'
+                            type='submit'
+                            variant='contained'
                         >
                             Sign in now
                         </Button>

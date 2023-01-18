@@ -1,4 +1,4 @@
-import { RestApi } from "modules";
+import { RestApi } from 'modules';
 
 export default class ExempleRequests {
     static ENDPOINT = `${RestApi.URL}/Exemple`;

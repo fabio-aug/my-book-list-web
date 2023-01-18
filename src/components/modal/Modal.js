@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { Close as CloseIcon } from '@mui/icons-material/';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 
@@ -10,12 +10,12 @@ function Modal({ title, open, onClose, content, actions, ...rest }) {
 		<Dialog
 			open={open}
 			onClose={onClose}
-			aria-labelledby="modal"
+			aria-labelledby='modal'
 			{...rest}
 		>
-			<DialogTitle id="modal-title">
+			<DialogTitle id='modal-title'>
 				{title}
-				<IconButton aria-label="modal-close" onClick={onClose}>
+				<IconButton aria-label='modal-close' onClick={onClose}>
 					<CloseIcon />
 				</IconButton>
 			</DialogTitle>

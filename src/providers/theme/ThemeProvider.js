@@ -2,7 +2,7 @@ import React, { createContext, useContext } from 'react';
 import PropTypes from 'prop-types';
 import CssBaseline from '@mui/material/CssBaseline';
 import { responsiveFontSizes } from '@mui/material';
-import { ThemeProvider as EmotionThemeProvider } from "@emotion/react";
+import { ThemeProvider as EmotionThemeProvider } from '@emotion/react';
 import { createTheme, ThemeProvider as MaterialThemeProvider } from '@mui/material/styles';
 
 import shadows from './Shadows';

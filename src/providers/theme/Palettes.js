@@ -5,11 +5,11 @@ const palette = {
         paper: '#eaeaea'
     },
     primary: {
-        main: "#202020",
+        main: '#202020',
         contrastText: '#ffffff'
     },
     secondary: {
-        main: "#f2f2f2",
+        main: '#f2f2f2',
         contrastText: '#202020'
     },
     info: {

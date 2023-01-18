@@ -6,7 +6,7 @@ const SnackbarContext = createContext();
 
 function SnackbarProvider({ children }) {
 	const [content, setContent] = useState(undefined);
-	const [snackbarData, setSnackbarData] = useState({ open: false, message: "", onClose: () => { } });
+	const [snackbarData, setSnackbarData] = useState({ open: false, message: '', onClose: () => { } });
 
 	function open(content, data) {
 		setContent(content);

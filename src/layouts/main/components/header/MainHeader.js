@@ -8,12 +8,12 @@ import Typography from '@mui/material/Typography';
 function MainHeader() {
     return (
         <Toolbar sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Button size="small">Subscribe</Button>
+            <Button size='small'>Subscribe</Button>
             <Typography
-                component="h2"
-                variant="h5"
-                color="inherit"
-                align="center"
+                component='h2'
+                variant='h5'
+                color='inherit'
+                align='center'
                 noWrap
                 sx={{ flex: 1 }}
             >
@@ -22,7 +22,7 @@ function MainHeader() {
             <IconButton>
                 <SearchIcon />
             </IconButton>
-            <Button variant="outlined" size="small">
+            <Button variant='outlined' size='small'>
                 Sign up
             </Button>
         </Toolbar>

@@ -9,14 +9,14 @@ function StylesGlobal() {
                     margin: 0,
                     padding: 0,
                 },
-                "&::-webkit-scrollbar": {
+                '&::-webkit-scrollbar': {
                     height: theme.spacing(0.5),
                     width: theme.spacing(0.5)
                 },
-                "&::-webkit-scrollbar-track": {
+                '&::-webkit-scrollbar-track': {
                     background: colors.grey[300]
                 },
-                "&::-webkit-scrollbar-thumb": {
+                '&::-webkit-scrollbar-thumb': {
                     background: colors.grey[600],
                     '&:hover': {
                         background: colors.grey[800]

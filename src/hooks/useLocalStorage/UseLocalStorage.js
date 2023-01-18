@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 function useLocalStorage(key, initialValue) {

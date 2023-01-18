@@ -19,7 +19,7 @@ function FormikSelect({ name, formik, options, label, ...rest }) {
                 onChange={(e) => formik.setFieldValue(name, e.target.value)}
                 {...rest}
             >
-                <MenuItem value="">
+                <MenuItem value=''>
                     <em>None</em>
                 </MenuItem>
                 {options.map((item, idx) => (

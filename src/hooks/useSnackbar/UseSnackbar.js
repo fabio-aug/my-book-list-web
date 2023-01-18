@@ -5,10 +5,10 @@ import { Close as CloseIcon } from '@mui/icons-material/';
 import { SnackbarContext } from 'providers/snackbar/SnackbarProvider';
 
 const severities = {
-	SUCCESS: "success",
-	INFO: "info",
-	WARNING: "warning",
-	ERROR: "error"
+	SUCCESS: 'success',
+	INFO: 'info',
+	WARNING: 'warning',
+	ERROR: 'error'
 };
 
 function useSnackbar({
@@ -30,8 +30,8 @@ function useSnackbar({
 				...snackbarData, 
 				message, 
 				action: (
-					<IconButton size="small" aria-label="close" color="inherit" onClick={close}>
-						<CloseIcon fontSize="small" />
+					<IconButton size='small' aria-label='close' color='inherit' onClick={close}>
+						<CloseIcon fontSize='small' />
 					</IconButton>
 				)
 			}

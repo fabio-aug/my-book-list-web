@@ -1,4 +1,4 @@
-import ExempleRequests from "./ExempleRequests";
+import ExempleRequests from './ExempleRequests';
 
 export {
     ExempleRequests

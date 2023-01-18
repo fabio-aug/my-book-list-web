@@ -1,5 +1,5 @@
-import Page from "./page/Page";
-import Modal from "./modal/Modal";
+import Page from './page/Page';
+import Modal from './modal/Modal';
 
 export {
     Page,

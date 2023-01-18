@@ -14,8 +14,8 @@ function Routes() {
             ]
         },
 
-        { path: "/", element: <Navigate to='/home' /> },
-        { path: "*", element: <Navigate to='/home' /> },
+        { path: '/', element: <Navigate to='/home' /> },
+        { path: '*', element: <Navigate to='/home' /> },
     ]);
 
     return routes;

@@ -1,6 +1,6 @@
 export default class RestApi {
     static URL = 'https://localhost:5000';
-    static TOKEN = "";
+    static TOKEN = '';
 
     static async httpMethod(method, url, body) {
         return fetch(url, {
@@ -14,10 +14,10 @@ export default class RestApi {
         });
     }
 
-    static httpGet = (url) => this.httpMethod("GET", url).then((res) => res.json());
-    static httpPost = (url, body) => this.httpMethod("POST", url, body).then((res) => res.json());
-    static httpPut = (url, body) => this.httpMethod("PUT", url, body).then((res) => res.json());
-    static httpDelete = (url) => this.httpMethod("DELETE", url).then((res) => res.json());
+    static httpGet = (url) => this.httpMethod('GET', url).then((res) => res.json());
+    static httpPost = (url, body) => this.httpMethod('POST', url, body).then((res) => res.json());
+    static httpPut = (url, body) => this.httpMethod('PUT', url, body).then((res) => res.json());
+    static httpDelete = (url) => this.httpMethod('DELETE', url).then((res) => res.json());
 
     static setToken = (token) => this.TOKEN = `Bearer ${token}`;
 }
