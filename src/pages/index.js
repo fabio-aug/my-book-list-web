@@ -1,5 +1,7 @@
 import Home from './home/Home';
+import BookList from './bookList/BookList';
 
 export {
-    Home
+    Home,
+    BookList
 }

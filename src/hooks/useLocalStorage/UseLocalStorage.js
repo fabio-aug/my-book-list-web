@@ -1,5 +1,5 @@
-import { useCallback, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useCallback, useState, useEffect } from 'react';
 
 function useLocalStorage(key, initialValue) {
 	const [value, setValue] = useState(() => {
@@ -20,7 +20,11 @@ function useLocalStorage(key, initialValue) {
 		setValue(undefined)
 	}, []);
 
-	return [value, setValue, remove];
+	return {
+        value,
+        setValue,
+        remove
+    };
 };
 
 useLocalStorage.propTypes = {

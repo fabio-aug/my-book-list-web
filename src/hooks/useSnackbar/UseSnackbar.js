@@ -5,64 +5,64 @@ import { Close as CloseIcon } from '@mui/icons-material/';
 import { SnackbarContext } from 'providers/snackbar/SnackbarProvider';
 
 const severities = {
-	SUCCESS: 'success',
-	INFO: 'info',
-	WARNING: 'warning',
-	ERROR: 'error'
+    SUCCESS: 'success',
+    INFO: 'info',
+    WARNING: 'warning',
+    ERROR: 'error'
 };
 
 function useSnackbar({
-	variant = 'filled',
-	vertical = 'bottom',
-	horizontal = 'center',
-	autoHideDuration = 2500
+    variant = 'filled',
+    vertical = 'bottom',
+    horizontal = 'center',
+    autoHideDuration = 2500
 } = {}) {
-	const { open, close } = useContext(SnackbarContext);
+    const { open, close } = useContext(SnackbarContext);
 
-	const snackbarData = useMemo(() => ({
-		anchorOrigin: { vertical, horizontal }, 
-		autoHideDuration 
-	}), [vertical, horizontal, autoHideDuration]);
+    const snackbarData = useMemo(() => ({
+        anchorOrigin: { vertical, horizontal },
+        autoHideDuration
+    }), [vertical, horizontal, autoHideDuration]);
 
-	const snackbar = (message) => ({
-		neutral: () => open(undefined,
-			{ 
-				...snackbarData, 
-				message, 
-				action: (
-					<IconButton size='small' aria-label='close' color='inherit' onClick={close}>
-						<CloseIcon fontSize='small' />
-					</IconButton>
-				)
-			}
-		),
-		success: () => open(
-			<Alert variant={variant} severity={severities.SUCCESS} onClose={close}>
-				{message}
-			</Alert>,
-			snackbarData
-		),
-		warning: () => open(
-			<Alert variant={variant} severity={severities.WARNING} onClose={close}>
-				{message}
-			</Alert>,
-			snackbarData
-		),
-		info: () => open(
-			<Alert variant={variant} severity={severities.INFO} onClose={close}>
-				{message}
-			</Alert>,
-			snackbarData
-		),
-		error: () => open(
-			<Alert variant={variant} severity={severities.error} onClose={close}>
-				{message}
-			</Alert>,
-			snackbarData
-		),
-	});
+    const snackbar = (message) => ({
+        neutral: () => open(undefined,
+            {
+                ...snackbarData,
+                message,
+                action: (
+                    <IconButton size='small' aria-label='close' color='inherit' onClick={close}>
+                        <CloseIcon fontSize='small' />
+                    </IconButton>
+                )
+            }
+        ),
+        success: () => open(
+            <Alert variant={variant} severity={severities.SUCCESS} onClose={close}>
+                {message}
+            </Alert>,
+            snackbarData
+        ),
+        warning: () => open(
+            <Alert variant={variant} severity={severities.WARNING} onClose={close}>
+                {message}
+            </Alert>,
+            snackbarData
+        ),
+        info: () => open(
+            <Alert variant={variant} severity={severities.INFO} onClose={close}>
+                {message}
+            </Alert>,
+            snackbarData
+        ),
+        error: () => open(
+            <Alert variant={variant} severity={severities.ERROR} onClose={close}>
+                {message}
+            </Alert>,
+            snackbarData
+        ),
+    });
 
-	return snackbar;
+    return snackbar;
 }
 
 export default useSnackbar;

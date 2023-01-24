@@ -1,5 +1,5 @@
-import ExempleRequests from './ExempleRequests';
+import BookRequests from './Book.request';
 
 export {
-    ExempleRequests
+    BookRequests
 }
