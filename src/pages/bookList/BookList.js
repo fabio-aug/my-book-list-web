@@ -6,7 +6,9 @@ import {
     IconButton,
     Typography,
     OutlinedInput,
-    InputAdornment
+    InputAdornment,
+    FormControl,
+    InputLabel
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
@@ -32,10 +34,10 @@ function BookList() {
     useEffect(componentDidMount, []);
 
     function onChangeInput(text) {
+        setBookSearch(text);
+
         if (text === '') {
             searchBook('', 1);
-        } else {
-            setBookSearch(text);
         }
     }
 
@@ -93,26 +95,29 @@ function BookList() {
         <Page title='Listagem de Livros'>
             <Grid container justifyContent='center' spacing={2}>
                 <Grid item xs={12} sm={12} md={8} lg={8}>
-                    <OutlinedInput
-                        value={bookSearch}
-                        onChange={(event) => onChangeInput(event.target.value)}
-                        id='search-book-input'
-                        label='Buscar Livro'
-                        placeholder='Buscar Livro'
-                        variant='outlined'
-                        fullWidth
+                    <FormControl variant='outlined' fullWidth>
+                        <InputLabel htmlFor='search-book-input'>Buscar Livro</InputLabel>
+                        <OutlinedInput
+                            value={bookSearch}
+                            onChange={(event) => onChangeInput(event.target.value)}
+                            id='search-book-input'
+                            label='Buscar Livro'
+                            placeholder='Buscar Livro'
+                            variant='outlined'
+                            fullWidth
 
-                        endAdornment={(
-                            <InputAdornment position='end'>
-                                <IconButton
-                                    aria-label='search-book-button'
-                                    onClick={() => searchBook(bookSearch, page)}
-                                >
-                                    <SearchIcon />
-                                </IconButton>
-                            </InputAdornment>
-                        )}
-                    />
+                            endAdornment={(
+                                <InputAdornment position='end'>
+                                    <IconButton
+                                        aria-label='search-book-button'
+                                        onClick={() => searchBook(bookSearch, page)}
+                                    >
+                                        <SearchIcon />
+                                    </IconButton>
+                                </InputAdornment>
+                            )}
+                        />
+                    </FormControl>
                 </Grid>
 
                 <Grid item sm={12} md={12} lg={12}>
