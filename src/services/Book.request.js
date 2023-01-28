@@ -1,11 +1,11 @@
 import { RestApi } from 'modules';
 
 export default class BookRequests {
-    static ENDPOINT = `${RestApi.URL}/Book`;
+    static ENDPOINT = `${RestApi.URL}/book`;
 
     static async SearchBook(searchTerm, page, itens) {
-        const term = searchTerm ? `searchTerm=${searchTerm}&` : '';
+        const term = searchTerm ? `term=${searchTerm}&` : '';
 
-        return RestApi.httpGet(`${this.ENDPOINT}/Search?${term}page=${page}&itens=${itens}`).then((response) => response);
+        return RestApi.httpGet(`${this.ENDPOINT}/searchBook?${term}page=${page}&itens=${itens}`).then((response) => response);
     }
 }

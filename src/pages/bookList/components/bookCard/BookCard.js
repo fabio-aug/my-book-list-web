@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import { Card, Button, CardMedia, Typography, CardContent } from '@mui/material';
+import { Typography, CardContent } from '@mui/material';
 
+import { Image } from 'assets';
 import { useHistory } from 'hooks';
-import { CardActions } from './BookCard.styles';
+import { Card, CardMedia } from './BookCard.styles';
 
 function BookCard({ book, ...rest }) {
     const history = useHistory();
@@ -14,26 +14,25 @@ function BookCard({ book, ...rest }) {
     }
 
     return (
-        <Card {...rest}>
+        <Card onClick={() => redirectCard(book.idBook)} {...rest}>
             <CardMedia
                 component='img'
-                image={book.image}
+                image={book.photo || Image.Book}
                 title='Imagem da capa do livro'
             />
             <CardContent>
                 <Typography
-                    gutterBottom
-                    variant='caption'
-                    component='div'
-                >
-                    {book.genre} | {book.dateRegistration}
-                </Typography>
-                <Typography
-                    gutterBottom
                     variant='h5'
                     component='div'
                 >
-                    {book.title}
+                    {book.name}
+                </Typography>
+                <Typography
+                    variant='body2'
+                    color='text.secondary'
+                    gutterBottom
+                >
+                    {book.author}
                 </Typography>
                 <Typography
                     variant='body2'
@@ -42,21 +41,6 @@ function BookCard({ book, ...rest }) {
                     {book.synopsis}
                 </Typography>
             </CardContent>
-            <CardActions>
-                <Typography
-                    variant='body2'
-                    color='text.secondary'
-                >
-                    {book.author}
-                </Typography>
-                <Button
-                    variant='text'
-                    endIcon={<ArrowRightAltIcon />}
-                    onClick={() => redirectCard(book.idBook)}
-                >
-                    Ler mais
-                </Button>
-            </CardActions>
         </Card>
     );
 }
@@ -65,11 +49,9 @@ BookCard.propTypes = {
     book: PropTypes.shape({
         idBook: PropTypes.number.isRequired,
         author: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
         synopsis: PropTypes.string.isRequired,
-        genre: PropTypes.string.isRequired,
-        image: PropTypes.string.isRequired,
-        dateRegistration: PropTypes.string.isRequired
+        photo: PropTypes.string,
     })
 };
 

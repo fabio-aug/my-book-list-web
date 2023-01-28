@@ -1,29 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import {
     Grid,
-    Button,
+    InputLabel,
     Pagination,
     IconButton,
     Typography,
+    FormControl,
     OutlinedInput,
     InputAdornment,
-    FormControl,
-    InputLabel
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
-import { Page, Divider } from 'components';
 import { useSnackbar } from 'hooks';
 import { BookCard } from './components';
 import { BookRequests } from 'services';
 import { PagesContainer } from './BookList.styles';
+import { Page, Divider, SkeletonCard } from 'components';
 
 function BookList() {
     const snackbar = useSnackbar();
 
     const [bookList, setBookList] = useState([]);
     const [bookSearch, setBookSearch] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const [page, setPage] = useState(1);
     const [pageCount, setPageCount] = useState(1);
@@ -42,53 +41,45 @@ function BookList() {
     }
 
     function searchBook(searchTerm, page) {
-        BookRequests.SearchBook(searchTerm, page, 12).then((res) => {
-            if (res.status && res.data) {
-                // const data = res.data;
-                // setBookList(data.list);
-                // setPageCount(data.pageCount);
+        if (loading) return;
 
+        setLoading(true);
+        BookRequests.SearchBook(searchTerm, page, 12).then((res) => {
+            if (res) {
                 setPage(page);
+                setBookList(res.bookList);
+                setPageCount(res.pageCount);
             } else {
                 snackbar('Não foi possível buscar livro.').warning();
             }
         }).catch((error) => {
             snackbar('Erro ao buscar livro.').error();
-        });
+        }).finally(() => setLoading(false));
+    }
 
-        setBookList([{
-            idBook: 1,
-            author: 'Autor 1',
-            title: 'Título 1',
-            synopsis: 'Sinopse 1',
-            genre: 'Genêro 1',
-            image: 'https://picsum.photos/200/200',
-            dateRegistration: '1 Mês atrás'
-        }, {
-            idBook: 2,
-            author: 'Autor 2',
-            title: 'Título 2',
-            synopsis: 'Sinopse 2',
-            genre: 'Genêro 2',
-            image: 'https://picsum.photos/200/200',
-            dateRegistration: '2 Mêses atrás'
-        }, {
-            idBook: 3,
-            author: 'Autor 3',
-            title: 'Título 3',
-            synopsis: 'Sinopse 3',
-            genre: 'Genêro 3',
-            image: 'https://picsum.photos/200/200',
-            dateRegistration: '3 Mêses atrás'
-        }, {
-            idBook: 4,
-            author: 'Autor 4',
-            title: 'Título 4',
-            synopsis: 'Sinopse 4',
-            genre: 'Genêro 4',
-            image: 'https://picsum.photos/200/200',
-            dateRegistration: '4 Mêses atrás'
-        }]);
+    function loadingComponent() {
+        return (
+            <Grid container spacing={2} >
+                {new Array(4).fill(0).map((_, idx) => (
+                    <Grid item xs={12} sm={6} md={4} lg={3} key={idx}>
+                        <SkeletonCard />
+                    </Grid>
+                ))}
+            </Grid>
+        );
+    }
+
+    function notFindBooksComponent() {
+        return (
+            <Typography
+                variant='h5'
+                gutterBottom
+                component='div'
+                textAlign='center'
+            >
+                Nenhum livro encontrado no momento.
+            </Typography>
+        );
     }
 
     return (
@@ -121,42 +112,33 @@ function BookList() {
                 </Grid>
 
                 <Grid item sm={12} md={12} lg={12}>
-                    <Divider
-                        title='Livros'
-                        action={(
-                            <Button
-                                variant='text'
-                                endIcon={<FilterAltIcon />}
-                            >
-                                <Typography
-                                    variant='h3'
-                                    component='div'
-                                >
-                                    Filtrar
-                                </Typography>
-                            </Button>
-                        )}
-                    />
+                    <Divider title='Livros' />
                 </Grid>
 
                 <Grid item sm={12} md={12} lg={12}>
-                    <Grid container spacing={2}>
-                        {bookList.map((book, idx) => (
-                            <Grid item xs={12} sm={6} md={4} lg={3} key={idx}>
-                                <BookCard book={book} />
-                            </Grid>
-                        ))}
-                        <PagesContainer item xs={12} sm={12} md={12} lg={12} xl={12} justifyContent='center'>
-                            <Pagination
-                                count={pageCount}
-                                page={page}
-                                onChange={(event, value) => searchBook(bookSearch, value)}
-                            />
-                        </PagesContainer>
-                    </Grid>
+                    {loading ? loadingComponent() : (
+                        <React.Fragment>
+                            {bookList.length === 0 ? notFindBooksComponent() : (
+                                <Grid container spacing={2} >
+                                    {bookList.map((book, idx) => (
+                                        <Grid item xs={12} sm={6} md={4} lg={3} key={idx}>
+                                            <BookCard book={book} />
+                                        </Grid>
+                                    ))}
+                                    <PagesContainer item xs={12} sm={12} md={12} lg={12} xl={12} justifyContent='center'>
+                                        <Pagination
+                                            count={pageCount}
+                                            page={page}
+                                            onChange={(event, value) => searchBook(bookSearch, value)}
+                                        />
+                                    </PagesContainer>
+                                </Grid>
+                            )}
+                        </React.Fragment>
+                    )}
                 </Grid>
             </Grid>
-        </Page>
+        </Page >
     );
 }
 

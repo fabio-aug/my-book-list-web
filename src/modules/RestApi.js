@@ -1,5 +1,5 @@
 export default class RestApi {
-    static URL = 'https://localhost:5000';
+    static URL = 'http://localhost:44390';
     static TOKEN = '';
 
     static async httpMethod(method, url, body) {
