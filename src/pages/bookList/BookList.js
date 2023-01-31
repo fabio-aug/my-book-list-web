@@ -12,10 +12,9 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 
 import { useSnackbar } from 'hooks';
-import { BookCard } from './components';
 import { BookRequests } from 'services';
 import { PagesContainer } from './BookList.styles';
-import { Page, Divider, SkeletonCard } from 'components';
+import { Page, Divider, SkeletonCard, BookCard } from 'components';
 
 function BookList() {
     const snackbar = useSnackbar();
