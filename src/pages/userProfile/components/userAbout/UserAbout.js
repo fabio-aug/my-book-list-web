@@ -29,7 +29,7 @@ function UserAbout({ userData }) {
                         title='Imagem do Usuário'
                         image={userData.photo ? userData.photo : Image.User}
                     />
-                    <CardContent>
+                    <CardContent> 
                         <Typography
                             variant='h3'
                             textAlign='center'
