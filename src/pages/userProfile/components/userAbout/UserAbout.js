@@ -27,7 +27,7 @@ function UserAbout({ userData }) {
                     <CardMedia
                         className='user-image'
                         title='Imagem do Usuário'
-                        image={userData.photo ? userData.photo : Image.User}
+                        image={userData?.photo ? userData.photo : Image.User}
                     />
                     <CardContent> 
                         <Typography
@@ -36,7 +36,7 @@ function UserAbout({ userData }) {
                             component='div'
                             gutterBottom
                         >
-                            {userData.name}
+                            {userData?.name || '--'}
                         </Typography>
                         <Typography
                             variant='h4'
@@ -44,21 +44,16 @@ function UserAbout({ userData }) {
                             component='div'
                             gutterBottom
                         >
-                            {userData.nickname}
+                            {userData?.nickname || '--'}
                         </Typography>
                         <Typography
                             variant='h5'
                             textAlign='center'
                             component='div'
-                            gutterBottom
                         >
-                            {userData.nationality}
+                            {userData?.nationality || '--'}
                         </Typography>
                     </CardContent>
-                    <CardActions>
-                        <Button size='small'>Share</Button>
-                        <Button size='small'>Learn More</Button>
-                    </CardActions>
                 </Card>
             </Grid>
         </Wrapper>

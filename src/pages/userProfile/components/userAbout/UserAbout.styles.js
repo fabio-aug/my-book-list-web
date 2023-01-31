@@ -3,10 +3,10 @@ import { Grid } from '@mui/material';
 
 export const Wrapper = styled(Grid)(() => ({
     '.user-image': {
-        width: '100%',
-        maxHeight: '200px',
+        height: '300px',
         backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        margin: 5
     }
 }));
