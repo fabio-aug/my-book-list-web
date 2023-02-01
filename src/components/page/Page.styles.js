@@ -11,5 +11,8 @@ export const Wrapper = styled('div')(({ isFullWidth, isFullHeight }) => ({
         maxWidth: isFullWidth,
         minWidth: isFullWidth,
         width: isFullWidth,
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column"
     }
 }));
