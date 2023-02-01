@@ -1,5 +1,7 @@
-import UserAbout from "./userAbout/UserAbout";
+import UserAbout from './userAbout/UserAbout';
+import UserFavorites from './userFavorites/UserFavorites';
 
 export {
-    UserAbout
+    UserAbout,
+    UserFavorites
 }

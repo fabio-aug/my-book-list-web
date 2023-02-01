@@ -13,7 +13,7 @@ export const Card = styled(CardMUI)(() => ({
 
 export const CardMedia = styled(CardMediaMUI)(() => ({
     width: '100%',
-    maxHeight: '200px',
+    maxHeight: '150px',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
