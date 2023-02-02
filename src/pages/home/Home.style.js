@@ -5,7 +5,7 @@ export const MainBanner = styled(Grid)(({image, theme}) =>({
     height: 500,
     backgroundImage: `url(${image})`,
     justifyContent: "center",
-    marginBottom: "50px",
+    marginBottom: "15px",
     ".maintitle":{
         marginLeft: "10%",
         color: theme.palette.primary.contrastText,
@@ -21,14 +21,23 @@ export const MainBanner = styled(Grid)(({image, theme}) =>({
     ".newImage":{
         minWidth:"60%",
         minHeight:500
+    },
+    ".subscribe":{
+        color: theme.palette.primary.contrastText,
+        maxWidth:"25%",
+        marginLeft: "10%",
+        marginTop: "5%"
     }
 }));
 
 export const NewsCards = styled(Grid)(() =>({
-    margin: "50px",
-    maxWidth: "80%",
     ".avatar":{
         minWidth: "100%",
         minHeight:"100%"
     }
 }));
+
+export const MainContent = styled(Grid)(()=>({
+    minWidth: "80%",
+    maxWidth:"80%"
+}))
