@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {Button, CardContent, Card, Typography, Grid, CardActions,Avatar} from '@mui/material';
 import { Image } from 'assets';
 import { useSnackbar } from 'hooks';
-import { Page, Modal } from 'components';
+import { Page, Modal,Divider, } from 'components';
 import { MainBanner, NewsCards} from './Home.style';
 
 
@@ -21,57 +21,49 @@ function Home() {
                     </Typography>
                 </Grid>
                 <Grid item md={4}>
-                    <Avatar className="newImage" variant="square" src="https://picsum.photos/200/300" />
+                    <Avatar className="newImage" variant="square" src={Image.Banner} />
                 </Grid>
             </MainBanner>
-
+            <Grid item sm={12} md={12} lg={12}>
+                    <Divider title='Novidades' />
+            </Grid>
             <NewsCards container justifyContent="center">
                 <Grid item md={6}>
                     <Avatar className="avatar" variant="square" src="https://picsum.photos/200/300" />
                 </Grid>
                 <Grid item md={6}>
-                    <Card sx={{ minWidth: 275 }}>
+                    <Card sx={{ minWidth: 275 , minHeight: 275}}>
                         <CardContent>
-                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                Word of the Day
-                            </Typography>
                             <Typography variant="h5" component="div">
-                                "Alo"
+                                Nome do Livro
                             </Typography>
                             <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                adjective
+                                Tipo do livro
                             </Typography>
                             <Typography variant="body2">
-                                well meaning and kindly.
-                                <br />
-                                {'"a benevolent smile"'}
+                                Breve descrição do livro
                             </Typography>
                         </CardContent>
                         <CardActions>
-                            <Button size="small">Learn More</Button>
+                            <Button size="small">Saiba mais</Button>
                         </CardActions>
                     </Card>
                 </Grid>
                 <Grid item md={6}>
-                    <Card sx={{ minWidth: 275 }}>
+                    <Card sx={{ minWidth: 275 , minHeight: 275}}>
                         <CardContent>
-                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                Word of the Day
-                            </Typography>
                             <Typography variant="h5" component="div">
-                                "Alo"
+                                Nome do Livro
                             </Typography>
                             <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                adjective
+                                Tipo do livro
                             </Typography>
                             <Typography variant="body2">
-                                well meaning and kindly.
-                                <br />
-                                {'"a benevolent smile"'}
+                                Breve descrição do livro
                             </Typography>
                         </CardContent>
                         <CardActions>
-                            <Button size="small">Learn More</Button>
+                            <Button size="small">Saiba mais</Button>
                         </CardActions>
                     </Card>
                 </Grid>
@@ -79,6 +71,14 @@ function Home() {
                     <Avatar className="avatar" variant="square" src="https://picsum.photos/200/300" />
                 </Grid>
             </NewsCards>
+            
+            <Grid item sm={12} md={12} lg={12}>
+                    <Divider title='Populares'/>
+            </Grid>
+
+            <Grid item sm={12} md={12} lg={12}>
+                    <Divider title='Os mais queridinhos' />
+            </Grid>
         </Page>
     )
 }

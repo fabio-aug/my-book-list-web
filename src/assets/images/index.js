@@ -1,9 +1,9 @@
 import Book from './book.jpg';
 import Estante from './estante.jpg';
-import MenReading from './menReading.jpg';
+import Banner from './banner.png';
 
 export {
     Book,
     Estante,
-    MenReading
+    Banner
 }
