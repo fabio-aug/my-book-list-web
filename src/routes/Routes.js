@@ -5,7 +5,8 @@ import { MainLayout } from 'layouts';
 
 import {
     Home,
-    BookList
+    BookList,
+    BookDetails
 } from 'pages';
 
 function Routes() {
@@ -15,11 +16,13 @@ function Routes() {
             children: [
                 { path: '/home', element: <Home /> },
                 { path: '/listagem-de-livros', element: <BookList /> },
+                { path: '/detalhes-do-livro', element: <BookDetails /> },
             ]
         },
 
         { path: '/', element: <Navigate to='/home' /> },
         { path: '*', element: <Navigate to='/home' /> },
+        
     ]);
 
     return routes;
