@@ -23,10 +23,20 @@ export const MainBanner = styled(Grid)(({image, theme}) =>({
         minHeight:500
     },
     ".subscribe":{
-        color: theme.palette.primary.contrastText,
-        maxWidth:"25%",
+        width:"30%",
         marginLeft: "10%",
         marginTop: "5%"
+    },
+    ".paper":{
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.primary.contrastText,
+        fontWeight: 600
+    },
+    ".button":{
+        backgroundColor: theme.palette.primary.contrastText,
+        color: theme.palette.primary.main,
+        marginLeft: "5%",
+        minWidth:"35%"
     }
 }));
 

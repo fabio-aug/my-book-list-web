@@ -3,7 +3,7 @@ import { Button, CardContent, Card, Typography, Grid, Box, CardActions, Avatar, 
 import { Image } from 'assets';
 import { useSnackbar } from 'hooks';
 import { Page, Divider, BookCard } from 'components';
-import { MainBanner, NewsCards, MainContent,Beloved} from './Home.style';
+import { MainBanner, NewsCards, MainContent, Beloved } from './Home.style';
 import { BookRequests } from "services";
 
 function Home() {
@@ -30,6 +30,19 @@ function Home() {
             snackbar('Erro.').error();
         }).finally(() => setLoading(false));
     }
+
+    function getLastBooks(){
+        if (loading) return;
+        setLoading(true);
+        BookRequests.getLastBooks(2).then((res) => {
+            if (res) {
+                setBookList(res.bookList);
+            }
+        }).catch((error) => {
+            snackbar('Erro ao buscar livro.').error();
+        }).finally(() => setLoading(false));
+    }
+
     return (
         <Page title='Home' isFullHeight isFullWidth>
             <MainBanner container alignItems="center" image={Image.Estante}>
@@ -40,14 +53,11 @@ function Home() {
                     <Typography className="subtitle" variant="h3" component="h3">
                         Listas e livros para todos os gostos
                     </Typography>
-                    <Grid item md={4} className="subscribe">
-                        <Box sx={{ backgroundColor: 'paper' }}>
-                            <Paper elevation={24} square={true}>
-                                Participe da nossa comunidade
-                                <Button> Cadastre-se </Button>
-                            </Paper>
-
-                        </Box>
+                    <Grid item md={6} className="subscribe">
+                        <Paper elevation={1} square className="paper">
+                            Participe da nossa comunidade
+                            <Button className="button"> Cadastre-se </Button>
+                        </Paper>
                     </Grid>
                 </Grid>
                 <Grid item md={4}>
