@@ -17,6 +17,7 @@ function Routes() {
                 { path: '/home', element: <Home /> },
                 { path: '/listagem-de-livros', element: <BookList /> },
                 { path: '/detalhes-do-livro', element: <BookDetails /> },
+                { path: '/reviews-do-usuario', element: <UserReviews /> }, 
             ]
         },
 
