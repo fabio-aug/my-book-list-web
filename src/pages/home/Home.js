@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Button, CardContent, Card, Typography, Grid, CardActions, Avatar, Paper, ArrowForwardOutlinedIcon, Icon} from '@mui/material';
+import { Button, CardContent, Card, Typography, Grid, Box, CardActions, Avatar, Paper, ArrowForwardOutlinedIcon, Icon } from '@mui/material';
 import { Image } from 'assets';
 import { useSnackbar } from 'hooks';
 import { Page, Divider, BookCard } from 'components';
-import { MainBanner, NewsCards, MainContent } from './Home.style';
+import { MainBanner, NewsCards, MainContent,Beloved} from './Home.style';
 import { BookRequests } from "services";
 
 function Home() {
@@ -41,10 +41,13 @@ function Home() {
                         Listas e livros para todos os gostos
                     </Typography>
                     <Grid item md={4} className="subscribe">
-                        <Paper elevation={1} square={true}>
-                            Participe da nossa comunidade
-                            <Button> Cadastre-se </Button>
-                        </Paper>
+                        <Box sx={{ backgroundColor: 'paper' }}>
+                            <Paper elevation={24} square={true}>
+                                Participe da nossa comunidade
+                                <Button> Cadastre-se </Button>
+                            </Paper>
+
+                        </Box>
                     </Grid>
                 </Grid>
                 <Grid item md={4}>
@@ -80,7 +83,7 @@ function Home() {
                             </Card>
                         </Grid>
                         <Grid item md={6}>
-                            <Card sx={{ minWidth: 275, minHeight: 275 }}>
+                            <Card sx={{ minWidth: 275, minHeight: 275, justifyContent: "center" }}>
                                 <CardContent>
                                     <Typography variant="h5" component="div">
                                         Nome do Livro
@@ -122,6 +125,63 @@ function Home() {
                 <Grid item sm={12} md={12} lg={12}>
                     <Divider title='Os mais queridinhos' />
                 </Grid>
+                <Beloved container>
+                    <Grid item sm={2} md={2} lg={2}>
+                        <Avatar className="avatarBeloved" variant="square" src="https://picsum.photos/200/300" />
+                    </Grid>
+                    <Grid item sm={2} md={2} lg={2}>
+                        <Card sx={{ minWidth: "100%", minHeight: "100%", justifyContent: "center" }}>
+                            <CardContent>
+                                <Typography variant="h5" component="div">
+                                    Nome do Livro
+                                </Typography>
+                                <Typography variant="body2">
+                                    Breve descrição do livro
+                                </Typography>
+                            </CardContent>
+                            <CardActions>
+                                <Button size="small">Saiba mais</Button>
+                            </CardActions>
+                        </Card>
+                    </Grid>
+
+                    <Grid item sm={2} md={2} lg={2}>
+                        <Avatar className="avatarBeloved" variant="square" src="https://picsum.photos/200/300" />
+                    </Grid>
+                    <Grid item sm={2} md={2} lg={2}>
+                        <Card sx={{ minWidth: "100%", minHeight: "100%" }}>
+                            <CardContent>
+                                <Typography variant="h5" component="div">
+                                    Nome do Livro
+                                </Typography>
+                                <Typography variant="body2">
+                                    Breve descrição do livro
+                                </Typography>
+                            </CardContent>
+                            <CardActions>
+                                <Button size="small">Saiba mais</Button>
+                            </CardActions>
+                        </Card>
+                    </Grid>
+                    <Grid item sm={2} md={2} lg={2}>
+                        <Avatar className="avatarBeloved" variant="square" src="https://picsum.photos/200/300" />
+                    </Grid>
+                    <Grid item sm={2} md={2} lg={2}>
+                        <Card sx={{ minWidth: "100%", minHeight: "100%" }}>
+                            <CardContent>
+                                <Typography variant="h5" component="div">
+                                    Nome do Livro
+                                </Typography>
+                                <Typography variant="body2">
+                                    Breve descrição do livro
+                                </Typography>
+                            </CardContent>
+                            <CardActions>
+                                <Button size="small">Saiba mais</Button>
+                            </CardActions>
+                        </Card>
+                    </Grid>
+                </Beloved>
             </MainContent>
         </Page>
     )

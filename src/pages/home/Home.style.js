@@ -41,3 +41,13 @@ export const MainContent = styled(Grid)(()=>({
     minWidth: "80%",
     maxWidth:"80%"
 }))
+
+export const Beloved = styled(Grid)(()=>({
+    marginTop: "15px",
+    marginBottom: "20px",
+    marginLeft:"10px",
+    ".avatarBeloved":{
+        minWidth: "100%",
+        minHeight:"100%"
+    }
+}))
