@@ -6,7 +6,7 @@ import { Image } from 'assets';
 import { useHistory } from 'hooks';
 import { Card, CardMedia } from './BookCard.styles';
 
-function BookCard({ book, ...rest }) {
+function BookCard({ book, showSynopsis = true, ...rest }) {
     const history = useHistory();
 
     function redirectCard(idBook) {
@@ -30,16 +30,18 @@ function BookCard({ book, ...rest }) {
                 <Typography
                     variant='body2'
                     color='text.secondary'
-                    gutterBottom
+                    gutterBottom={showSynopsis}
                 >
                     {book.author}
                 </Typography>
-                <Typography
-                    variant='body2'
-                    color='text.secondary'
-                >
-                    {book.synopsis}
-                </Typography>
+                {showSynopsis && (
+                    <Typography
+                        variant='body2'
+                        color='text.secondary'
+                    >
+                        {book.synopsis}
+                    </Typography>
+                )}
             </CardContent>
         </Card>
     );
@@ -52,7 +54,8 @@ BookCard.propTypes = {
         name: PropTypes.string.isRequired,
         synopsis: PropTypes.string.isRequired,
         photo: PropTypes.string,
-    })
+    }),
+    showSynopsis: PropTypes.bool
 };
 
 export default BookCard;

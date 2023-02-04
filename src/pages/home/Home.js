@@ -21,7 +21,7 @@ function Home() {
         <Page title='Home' isFullHeight isFullWidth>
             <MainBanner image={Image.Estante}>
                 <MainTitle>
-                    <Typography variant="h1" component="h2">
+                    <Typography variant='h1' component='h2'>
                         Bem-vindo ao MyBookList
                     </Typography>
                 </MainTitle>
