@@ -6,7 +6,8 @@ import { MainLayout } from 'layouts';
 import {
     Home,
     BookList,
-    BookDetails
+    BookDetails,
+    UserReviews
 } from 'pages';
 
 function Routes() {
