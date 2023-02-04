@@ -1,4 +1,4 @@
-import { styled } from "@mui/system";
+import { styled } from '@mui/system';
 
 export const Wrapper = styled('div')(({ isFullWidth, isFullHeight }) => ({
     width: '100%',

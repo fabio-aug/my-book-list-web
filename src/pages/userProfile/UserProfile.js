@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 
 import { Page } from 'components';
 import { useSnackbar } from 'hooks';
-import { UserRequests, FavoriteRequests } from 'services';
-import { UserAbout, UserFavorites } from './components';
+import { UserAbout, UserFavorites, UserFriends, UserDashboard } from './components';
+import { UserRequests, FavoriteRequests, FriendshipRequests } from 'services';
 
 function UserProfile() {
     const snackbar = useSnackbar();
@@ -17,8 +17,14 @@ function UserProfile() {
     const [favoriteList, setFavoriteList] = useState([]);
     const [favoriteLoading, setFavoriteLoading] = useState(false);
 
+    const [friendshipList, setFriendshipList] = useState([]);
+    const [friendshipPage, setFriendshipPage] = useState(0);
+    const [friendshipPageCount, setFriendshipPageCount] = useState(1);
+    const [friendshipLoading, setFriendshipLoading] = useState(false);
+
     useEffect(() => {
         getUserDataById();
+        searchUserFriendship(1);
         getFavoritesListByIduser();
     }, [idUser]);
 
@@ -55,14 +61,52 @@ function UserProfile() {
         }).finally(() => setFavoriteLoading(false));
     }
 
+    function searchUserFriendship(page) {
+        if (!idUser) return;
+        if (friendshipLoading) return;
+        if (friendshipPage === page) return;
+
+        setFriendshipLoading(true);
+        FriendshipRequests.SearchUserFriendship(idUser, page, 4).then((res) => {
+            if (res) {
+                setFriendshipList(res.friendshipList);
+                setFriendshipPage(page);
+                setFriendshipPageCount(res.pageCount);
+            } else {
+                snackbar('Não foi possível buscar a lista de amigos do usuário.').warning();
+            }
+        }).catch((error) => {
+            snackbar('Erro ao buscar a lista de amigos do usuário.').error();
+        }).finally(() => setFriendshipLoading(false));
+    }
+
     return (
         <Page title='Perfil do Usuário'>
-            <Grid container spacing={2}>
+            <Grid container spacing={5}>
                 <Grid item xs={12} sm={5} md={4} lg={4} xl={4}>
-                    <UserAbout userData={userData} />
+                    <UserAbout
+                        userData={userData}
+                        loading={userLoading}
+                    />
                 </Grid>
                 <Grid item xs={12} sm={7} md={8} lg={8} xl={8}>
-                    <UserFavorites favoriteList={favoriteList} />
+                    <UserFavorites
+                        favoriteList={favoriteList}
+                        loading={favoriteLoading}
+                    />
+                </Grid>
+
+                <Grid item xs={12} sm={5} md={4} lg={4} xl={4}>
+                    <UserFriends
+                        friendshipList={friendshipList}
+                        page={friendshipPage}
+                        pageCount={friendshipPageCount}
+                        searchFriend={searchUserFriendship}
+                        loading={friendshipLoading}
+                    />
+                </Grid>
+                <Grid item xs={12} sm={7} md={8} lg={8} xl={8}>
+                    <UserDashboard />
                 </Grid>
             </Grid>
         </Page>
