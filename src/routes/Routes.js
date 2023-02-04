@@ -6,7 +6,8 @@ import { MainLayout } from 'layouts';
 import {
     Home,
     BookList,
-    UserProfile
+    UserProfile,
+    BookDetails
 } from 'pages';
 
 function Routes() {
@@ -16,12 +17,14 @@ function Routes() {
             children: [
                 { path: '/home', element: <Home /> },
                 { path: '/listagem-de-livros', element: <BookList /> },
-                { path: '/perfil-do-usuario/:idUser', element: <UserProfile /> },
+                { path: '/detalhes-do-livro', element: <BookDetails /> },
+                { path: '/perfil-do-usuario/:idUser', element: <UserProfile /> }
             ]
         },
 
         { path: '/', element: <Navigate to='/home' /> },
         { path: '*', element: <Navigate to='/home' /> },
+        
     ]);
 
     return routes;
