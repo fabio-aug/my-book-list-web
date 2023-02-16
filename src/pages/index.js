@@ -6,6 +6,7 @@ import UserReviews from './userReviews/UserReviews';
 export {
     Home,
     BookList,
+    /* UserProfile, */
     BookDetails,
     UserReviews
 }

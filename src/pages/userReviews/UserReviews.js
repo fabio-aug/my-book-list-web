@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import {
     Grid,
@@ -7,14 +7,44 @@ import {
     FormControl,
 } from '@mui/material';
 
-import { PagesContainer } from './UserReviews.styles';
+import { useParams } from 'react-router-dom';
+import { PagesContainer } from './UserReviews.style';
 import { Page, Divider, SkeletonCard } from 'components';
+import { UserRequests} from 'services';
+import { useSnackbar } from 'hooks';
+
 
 function UserReviews() {
+    const snackbar = useSnackbar();
+    const { idUser } = useParams();
+
+
+    const [userLoading, setUserLoading] = useState(false);
     const [loading] = useState(false);
+
     const review = 0;
     const [page, setPage] = useState(1);
     const [pageCount, setPageCount] = useState(1);
+
+    /* useEffect(() => {
+        getUserDataById();
+    }, [idUser]);
+
+    function getUserDataById() {
+        if (!idUser) return;
+        if (userLoading) return;
+
+        setUserLoading(true);
+        UserRequests.GetUserById(idUser).then((res) => {
+            if (res) {
+                setUserReviews(res);
+            } else {
+                snackbar('Não foi possível buscar os dados do usuário.').warning();
+            }
+        }).catch((error) => {
+            snackbar('Erro ao buscar os dados do usuário.').error();
+        }).finally(() => setUserReviews(false));
+    } */
 
     function loadingComponent() {
         return (
