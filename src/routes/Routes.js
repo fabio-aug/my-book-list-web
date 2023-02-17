@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useRoutes, Navigate } from 'react-router-dom';
 
+import { useAuth } from 'hooks';
 import { MainLayout } from 'layouts';
 
 import {
@@ -11,23 +12,39 @@ import {
 } from 'pages';
 
 function Routes() {
-    const routes = useRoutes([
-        {
-            element: <MainLayout />,
-            children: [
-                { path: '/home', element: <Home /> },
-                { path: '/listagem-de-livros', element: <BookList /> },
-                { path: '/detalhes-do-livro', element: <BookDetails /> },
-                { path: '/perfil-do-usuario/:idUser', element: <UserProfile /> }
-            ]
-        },
+    const { isAuthenticated } = useAuth();
 
-        { path: '/', element: <Navigate to='/home' /> },
-        { path: '*', element: <Navigate to='/home' /> },
-        
-    ]);
+    const privateRoutes = {
+        element: <MainLayout />,
+        children: [
+            { path: '/listagem-de-livros', element: <BookList /> },
+            { path: '/detalhes-do-livro', element: <BookDetails /> },
+            { path: '/perfil-do-usuario/:idUser', element: <UserProfile /> }
+        ]
+    };
 
-    return routes;
+    const publicRoutes = {
+        element: <MainLayout />,
+        children: [
+            { path: '/home', element: <Home /> },
+        ]
+    };
+
+    const routes = useMemo(() => {
+        const aux = [
+            publicRoutes,
+            { path: '/', element: <Navigate to='/home' /> },
+            { path: '*', element: <Navigate to='/home' /> },
+        ];
+
+        if (isAuthenticated) {
+            aux.push(privateRoutes);
+        }
+
+        return aux;
+    }, [isAuthenticated]);
+
+    return useRoutes(routes);
 }
 
 export default Routes;

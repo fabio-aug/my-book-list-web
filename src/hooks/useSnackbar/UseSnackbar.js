@@ -1,7 +1,5 @@
 import React, { useContext, useMemo } from 'react';
 import Alert from '@mui/material/Alert';
-import { IconButton } from '@mui/material/';
-import { Close as CloseIcon } from '@mui/icons-material/';
 import { SnackbarContext } from 'providers/snackbar/SnackbarProvider';
 
 const severities = {
@@ -25,17 +23,6 @@ function useSnackbar({
     }), [vertical, horizontal, autoHideDuration]);
 
     const snackbar = (message) => ({
-        neutral: () => open(undefined,
-            {
-                ...snackbarData,
-                message,
-                action: (
-                    <IconButton size='small' aria-label='close' color='inherit' onClick={close}>
-                        <CloseIcon fontSize='small' />
-                    </IconButton>
-                )
-            }
-        ),
         success: () => open(
             <Alert variant={variant} severity={severities.SUCCESS} onClose={close}>
                 {message}
