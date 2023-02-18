@@ -1,8 +1,8 @@
-import { styled } from "@mui/system";
+import { styled } from '@mui/system';
 import {
     Card as CardMUI,
     CardMedia as CardMediaMUI
-} from "@mui/material";
+} from '@mui/material';
 
 export const Card = styled(CardMUI)(() => ({
     ':hover': {
@@ -13,7 +13,7 @@ export const Card = styled(CardMUI)(() => ({
 
 export const CardMedia = styled(CardMediaMUI)(() => ({
     width: '100%',
-    maxHeight: '200px',
+    maxHeight: '150px',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',

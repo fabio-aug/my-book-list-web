@@ -9,6 +9,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import Routes from 'routes/Routes';
+import { LoginModal, RegisterModal } from 'components';
 import { SnackbarProvider, ThemeProvider, GlobalProvider } from 'providers';
 
 function App() {
@@ -20,6 +21,8 @@ function App() {
                         <RoutesProvider>
                             <Routes />
                         </RoutesProvider>
+                        <LoginModal />
+                        <RegisterModal />
                     </LocalizationProvider>
                 </SnackbarProvider>
             </ThemeProvider>
