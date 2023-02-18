@@ -8,7 +8,8 @@ import {
     Home,
     BookList,
     UserProfile,
-    BookDetails
+    BookDetails,
+    UserReviews
 } from 'pages';
 
 function Routes() {
@@ -19,7 +20,8 @@ function Routes() {
         children: [
             { path: '/listagem-de-livros', element: <BookList /> },
             { path: '/detalhes-do-livro', element: <BookDetails /> },
-            { path: '/perfil-do-usuario/:idUser', element: <UserProfile /> }
+            { path: '/perfil-do-usuario/:idUser', element: <UserProfile /> },
+            { path: '/reviews-do-usuario/', element: <UserReviews /> }
         ]
     };
 
