@@ -6,6 +6,7 @@ export const MainBanner = styled(Grid)(({image, theme}) =>({
     backgroundImage: `url(${image})`,
     justifyContent: "center",
     marginBottom: "15px",
+    display: 'flex',
     ".maintitle":{
         marginLeft: "10%",
         color: theme.palette.primary.contrastText,
@@ -19,8 +20,8 @@ export const MainBanner = styled(Grid)(({image, theme}) =>({
         fontSize: "30px"
     },
     ".newImage":{
-        minWidth:"60%",
-        minHeight:500
+        minWidth:"70%",
+        minHeight:"100%"
     },
     ".subscribe":{
         width:"30%",
