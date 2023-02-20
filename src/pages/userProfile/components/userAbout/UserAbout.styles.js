@@ -8,5 +8,11 @@ export const Wrapper = styled(Grid)(() => ({
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         margin: 5
+    },
+
+    '.content': {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
     }
 }));

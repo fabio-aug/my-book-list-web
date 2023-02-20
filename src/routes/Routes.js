@@ -44,6 +44,7 @@ function Routes() {
         }
 
         return aux;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isAuthenticated]);
 
     return useRoutes(routes);

@@ -6,14 +6,23 @@ import {
     Skeleton,
     CardMedia,
     Typography,
-    CardContent
+    CardContent,
+    Button
 } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import { LoadingButton } from '@mui/lab';
 
 import { Image } from 'assets';
 import { Divider } from 'components';
 import { Wrapper } from './UserAbout.styles';
 
-function UserAbout({ userData, loading }) {
+function UserAbout({
+    isFriendShipLoading,
+    isFriendShip, userData,
+    isEditButton, loading,
+    addFriend, deleteFriend,
+    openModal
+}) {
     function loadingComponent() {
         return (
             <Card>
@@ -59,7 +68,7 @@ function UserAbout({ userData, loading }) {
                                     title='Imagem do Usuário'
                                     image={userData?.photo ? userData.photo : Image.User}
                                 />
-                                <CardContent>
+                                <CardContent className='content'>
                                     <Typography
                                         variant='h3'
                                         textAlign='center'
@@ -76,13 +85,24 @@ function UserAbout({ userData, loading }) {
                                     >
                                         {userData?.nickname || '--'}
                                     </Typography>
-                                    <Typography
-                                        variant='h5'
-                                        textAlign='center'
-                                        component='div'
-                                    >
-                                        {userData?.nationality || '--'}
-                                    </Typography>
+                                    {isEditButton ? (
+                                        <Button
+                                            onClick={() => openModal(true)}
+                                            variant='contained'
+                                            endIcon={<EditIcon />}
+                                        >
+                                            Editar perfil
+                                        </Button>
+                                    ) : (
+                                        <LoadingButton
+                                            variant='contained'
+                                            disabled={isFriendShipLoading}
+                                            loading={isFriendShipLoading}
+                                            onClick={() => isFriendShip ? deleteFriend() : addFriend()}
+                                        >
+                                            {isFriendShip ? 'Seguindo' : 'Seguir'}
+                                        </LoadingButton>
+                                    )}
                                 </CardContent>
                             </Card>
                         )}
@@ -101,7 +121,13 @@ UserAbout.propTypes = {
         nationality: PropTypes.string,
         name: PropTypes.string.isRequired,
     }),
-    loading: PropTypes.bool.isRequired
+    isFriendShipLoading: PropTypes.bool.isRequired,
+    isEditButton: PropTypes.bool.isRequired,
+    isFriendShip: PropTypes.bool.isRequired,
+    loading: PropTypes.bool.isRequired,
+    addFriend: PropTypes.func.isRequired,
+    deleteFriend: PropTypes.func.isRequired,
+    openModal: PropTypes.func.isRequired
 }
 
 export default UserAbout;

@@ -11,6 +11,10 @@ export default class UserRequests {
         return RestApi.httpPost(`${this.ENDPOINT}/create`, dto).then((response) => response);
     }
 
+    static async Update(dto) {
+        return RestApi.httpPut(`${this.ENDPOINT}/update`, dto).then((response) => response);
+    }
+
     static async GetUserById(idUSer) {
         return RestApi.httpGet(`${this.ENDPOINT}/getById?id=${idUSer}`).then((response) => response);
     }
