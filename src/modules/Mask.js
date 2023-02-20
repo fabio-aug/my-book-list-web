@@ -66,64 +66,10 @@ function applyMask(mask, text) {
     return text;
 }
 
-/**
- * Apply a generic phone mask on the text
- * @param {String} text Text to apply mask
- * @returns {String} Masked text
- */
-function formatGenericPhone(text) {
-    if (text.length <= masks.phone.length) return applyMask(masks.phone, text);
-    else return applyMask(masks.cellphone, text);
-}
-
-/**
- * Apply a cpf or cnpj mask, depending on the length of the text
- * @param {String} text Text to apply mask
- * @returns {String} Masked text
- */
-function formatCpfCnpj(text) {
-    if (text.length <= masks.cpf.length) return applyMask(masks.cpf, text);
-    else return applyMask(masks.cnpj, text);
-}
-
-/**
- * Apply a decimal mask
- * @param {String} value Text to apply mask
- * @param {Number} min Minimum value of the decimal
- * @param {Number} max Maximum value of the decimal
- * @param {String} prefix Prefix of the decimal
- * @returns {String} Masked text
- */
-function formatDecimal(value, min, max, prefix = '') {
-    if (typeof (value) !== 'string') return '';
-    value = unmaskDecimal(value, min, max, prefix);
-    value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-    if (prefix) value = `${prefix} ${value}`;
-    return `${value.substring(0, value.length - 3)},${value.substring(value.length - 2, value.length)}`;
-}
-
-/**
- * Remove decimal mask
- * @param {String} value Text to remove mask
- * @param {Number} min Minimum value of the decimal
- * @param {Number} max Maximum value of the decimal
- * @param {String} prefix Prefix of the decimal
- * @returns {String} Unmasked text
- */
-function unmaskDecimal(value, min, max, prefix = '') {
-    value = unmask(value.replace(prefix, '').replace('^0+', ''));
-    value = NaN0(Number(value)) / 100;
-    if (min && (value < min)) return min.toFixed(2);
-    if (max && (value > max)) return max.toFixed(2);
-    return value.toFixed(2);
-}
-
-function NaN0(value) {
-    return isNaN(value) ? 0 : value;
-};
-
 function formatBase64(base64, format = 'png') {
     switch (format) {
+        case 'webp':
+            return `data:image/${format};base64,${base64}`;
         case 'png':
             return `data:image/${format};base64,${base64}`;
         case 'mpeg':
@@ -143,22 +89,6 @@ function splitBase64(str) {
 function normalizeStr(str) {
     if (!str) return '';
     return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-}
-
-function escapeHtml(str) {
-    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;').replace(/'/g, '&#39;')
-        .replace(/"/g, '&quot;');
-}
-
-function unescapeHtml(str) {
-    return str.replace(/&amp;/g, '&').replace(/&lt;/g, '<')
-        .replace(/&gt;/g, '>').replace(/&#39;/g, "'")
-        .replace(/&quot;/g, '"');
-}
-
-function removeHtmlTags(str) {
-    return str.replace(/<[^>]*>/g, '');
 }
 
 function reverseString(str) {
@@ -188,19 +118,11 @@ export {
     regex,
     unmask,
     applyMask,
-    formatGenericPhone,
-    formatCpfCnpj,
-    formatDecimal,
-    unmaskDecimal,
-    NaN0,
-    formatBase64,
     splitBase64,
-    normalizeStr,
-    escapeHtml,
-    unescapeHtml,
-    removeHtmlTags,
-    reverseString,
-    upperFirstLetter,
     getInitials,
-    validateEmail
+    formatBase64,
+    normalizeStr,
+    reverseString,
+    validateEmail,
+    upperFirstLetter
 };

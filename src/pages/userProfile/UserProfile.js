@@ -46,8 +46,9 @@ function UserProfile() {
     const [userUpdateModal, setUserUpdateModal] = useState(false);
 
     useEffect(() => {
-
-    }, []);
+        if (!currentUser) return;
+        setUserData(currentUser);
+    }, [currentUser]);
 
     useEffect(() => {
         getUserDataById();
@@ -62,7 +63,10 @@ function UserProfile() {
     function getUserDataById() {
         if (!idUser) return;
         if (userLoading) return;
-        if (parseInt(currentUser.idUser) === parseInt(idUser)) return setUserData(currentUser);
+        if (parseInt(currentUser.idUser) === parseInt(idUser)) {
+            setUserData(currentUser);
+            return;
+        };
 
         setUserLoading(true);
         UserRequests.GetUserById(idUser).then((res) => {

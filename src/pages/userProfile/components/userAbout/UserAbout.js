@@ -12,6 +12,7 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import { LoadingButton } from '@mui/lab';
 
+import { Mask } from 'modules';
 import { Image } from 'assets';
 import { Divider } from 'components';
 import { Wrapper } from './UserAbout.styles';
@@ -66,7 +67,7 @@ function UserAbout({
                                 <CardMedia
                                     className='user-image'
                                     title='Imagem do Usuário'
-                                    image={userData?.photo ? userData.photo : Image.User}
+                                    image={userData?.photo ? Mask.formatBase64(userData.photo, 'webp') : Image.User}
                                 />
                                 <CardContent className='content'>
                                     <Typography
