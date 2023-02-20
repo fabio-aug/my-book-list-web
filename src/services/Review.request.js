@@ -10,4 +10,12 @@ export default class ReviewRequests {
     static async DashboardByIdUser(idUser) {
         return RestApi.httpGet(`${this.ENDPOINT}/dashboardByIdUser?idUser=${idUser}`).then((response) => response);
     }
+
+    static async getMostReviewed() {
+        return RestApi.httpGet(`${this.ENDPOINT}/getMostReviewed`).then((response) => response);
+    }
+
+    static async getBestReviewed() {
+        return RestApi.httpGet(`${this.ENDPOINT}/getBestReviewed`).then((response) => response);
+    }
 }

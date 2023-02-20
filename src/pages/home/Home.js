@@ -1,53 +1,83 @@
-import React, { useState, useEffect } from 'react';
-import { Button, CardContent, Card, Typography, Grid, Box, CardActions, Avatar, Paper, ArrowForwardOutlinedIcon, Icon } from '@mui/material';
+import React, { useState, useEffect, useContext } from 'react';
+import { Button, CardContent, Card, Typography, Grid, CardActions, Avatar, Paper } from '@mui/material';
 import { Image } from 'assets';
-import { useSnackbar } from 'hooks';
+import { useSnackbar, useHistory } from 'hooks';
 import { Page, Divider, BookCard } from 'components';
-import { MainBanner, NewsCards, MainContent, Beloved } from './Home.style';
-import { BookRequests } from "services";
+import { MainBanner, MainContent, Beloved, NewsCards } from './Home.style';
+import { BookRequests, ReviewRequests } from "services";
+import { GlobalContext } from 'providers/global/GlobalProvider';
+
 
 function Home() {
+
     const snackbar = useSnackbar();
 
-    const [bookList, setBookList] = useState([]);
-    const [bookSearch, setBookSearch] = useState('');
-    const [loading, setLoading] = useState(false);
+    const history = useHistory();
+
+    const [lastBooksList, setLastBooksList] = useState(null);
+    const [loadingLastBooks, setLoadingLastBooks] = useState(false);
+
+    const [bestReviewedList, setBestReviewedList] = useState(null);
+    const [loadingBestReviewed, setLoadingBestReviewed] = useState(false);
+
+    const [mostReviewedList, setMostReviewedList] = useState([]);
+    const [loadingMostReviewed, setLoadingMostReviewed] = useState(false);
+
+    const { setRegister } = useContext(GlobalContext);
 
     function componentDidMount() {
-        searchBook(bookSearch, 1);
+        getLastBooks();
+        getBestReviewed();
+        getMostReviewed();
     }
     useEffect(componentDidMount, []);
-    function searchBook(searchTerm, page) {
-        if (loading) return;
 
-        setLoading(true);
-        BookRequests.SearchBook("", 1, 3).then((res) => {
-            if (res) {
-                setBookList(res.bookList);
-                console.table(res.bookList);
-            }
-        }).catch((error) => {
-            snackbar('Erro.').error();
-        }).finally(() => setLoading(false));
-    }
-
-    function getLastBooks(){
-        if (loading) return;
-        setLoading(true);
-        BookRequests.getLastBooks(2).then((res) => {
-            if (res) {
-                setBookList(res.bookList);
+    function getLastBooks() {
+        if (loadingLastBooks) return;
+        setLoadingLastBooks(true);
+        BookRequests.getLastBooks().then((res) => {
+            if (res.status) {
+                setLastBooksList(res.data);
             }
         }).catch((error) => {
             snackbar('Erro ao buscar livro.').error();
-        }).finally(() => setLoading(false));
+        }).finally(() => setLoadingLastBooks(false));
+    }
+
+    function getBestReviewed() {
+        if (loadingBestReviewed) return;
+        setLoadingBestReviewed(true);
+        ReviewRequests.getBestReviewed().then((res) => {
+            if (res.status) {
+                setBestReviewedList(res.data);
+            }
+        }).catch((error) => {
+            snackbar('Erro ao buscar livro.').error();
+        }).finally(() => setLoadingBestReviewed(false));
+    }
+
+    function getMostReviewed() {
+        if (loadingMostReviewed) return;
+        setLoadingMostReviewed(true);
+        ReviewRequests.getMostReviewed().then((res) => {
+            if (res.status) {
+                setMostReviewedList(res.data.bookList);
+            }
+            console.log(res)
+        }).catch((error) => {
+            snackbar('Erro ao buscar livro.').error();
+        }).finally(() => setLoadingMostReviewed(false));
+    }
+
+    function redirectCard(idBook) {
+        history.redirectTo(`/detalhes-do-livro/${idBook}`);
     }
 
     return (
         <Page title='Home' isFullHeight isFullWidth>
             <MainBanner container alignItems="center" image={Image.Estante}>
                 <Grid item md={8}>
-                    <Typography className="maintitle" variant="h1" component="h1">
+                    <Typography className="maintitle" variant="h1">
                         Bem-vindo ao My Book List
                     </Typography>
                     <Typography className="subtitle" variant="h3" component="h3">
@@ -56,7 +86,7 @@ function Home() {
                     <Grid item md={6} className="subscribe">
                         <Paper elevation={1} square className="paper">
                             Participe da nossa comunidade
-                            <Button className="button"> Cadastre-se </Button>
+                            <Button className="button" variant='contained' onClick={() => setRegister(true)}> Cadastre-se </Button>
                         </Paper>
                     </Grid>
                 </Grid>
@@ -65,133 +95,141 @@ function Home() {
                 </Grid>
             </MainBanner>
             <MainContent container spacing={2}>
+
                 <Grid item sm={12} md={12} lg={12}>
                     <Divider title='Novidades' />
                 </Grid>
-                <Grid item sm={12} md={12} lg={12}>
-                    <NewsCards container justifyContent="center">
-                        <Grid item md={6}>
-                            <Avatar className="avatar" variant="square" src="https://picsum.photos/200/300" />
-                        </Grid>
-                        <Grid item md={6}>
-                            <Card sx={{ minWidth: 275, minHeight: 275 }}>
-                                <CardContent>
-                                    <Typography variant="h5" component="div">
-                                        Nome do Livro
-                                    </Typography>
-                                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                        Autor
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        Breve descrição do livro
-                                    </Typography>
-                                </CardContent>
 
-                                <CardActions>
-                                    <Button size="small">Saiba mais</Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                        <Grid item md={6}>
-                            <Card sx={{ minWidth: 275, minHeight: 275, justifyContent: "center" }}>
-                                <CardContent>
-                                    <Typography variant="h5" component="div">
-                                        Nome do Livro
-                                    </Typography>
-                                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                        Autor
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        Breve descrição do livro
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small">Saiba mais</Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                        <Grid item md={6}>
-                            <Avatar className="avatar" variant="square" src="https://picsum.photos/200/300" />
-                        </Grid>
-                    </NewsCards>
-                </Grid>
+                {(!loadingLastBooks && lastBooksList !== null) && (
+                    <Grid item sm={12} md={12} lg={12}>
+                        <NewsCards container justifyContent="center">
+                            <Grid item md={6}>
+                                <Avatar className="avatar" variant="square" src={lastBooksList.lastBookOne.photo} />
+                            </Grid>
+                            <Grid item md={6}>
+                                <Card sx={{ minWidth: 275, minHeight: 275 }}>
+                                    <CardContent>
+                                        <Typography variant="h5" component="div">
+                                            {lastBooksList.lastBookOne.name}
+                                        </Typography>
+                                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                            {lastBooksList.lastBookOne.author}
+                                        </Typography>
+                                        <Typography variant="body2">
+                                            {lastBooksList.lastBookOne.synopsis}
+                                        </Typography>
+                                    </CardContent>
+
+                                    <CardActions>
+                                        <Button size="small" onClick={() => redirectCard(lastBooksList.lastBookOne.idBook)}>Saiba mais</Button>
+                                    </CardActions>
+
+                                </Card>
+                            </Grid>
+                            <Grid item md={6}>
+                                <Card sx={{ minWidth: 275, minHeight: 275 }}>
+                                    <CardContent>
+                                        <Typography variant="h5" component="div">
+                                            {lastBooksList.lastBookTwo.name}
+                                        </Typography>
+                                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                            {lastBooksList.lastBookTwo.author}
+                                        </Typography>
+                                        <Typography variant="body2">
+                                            {lastBooksList.lastBookTwo.synopsis}
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions>
+                                        <Button size="small" onClick={() => redirectCard(lastBooksList.lastBookTwo.idBook)}>Saiba mais</Button>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                            <Grid item md={6}>
+                                <Avatar className="avatar" variant="square" src={lastBooksList.lastBookTwo.photo} />
+                            </Grid>
+                        </NewsCards>
+                    </Grid>
+                )}
 
                 <Grid item sm={12} md={12} lg={12}>
                     <Divider title='Populares' />
                 </Grid>
 
-                <Grid item sm={12} md={12} lg={12} >
-                    <Grid container spacing={2}>
-                        {
-                            bookList.map((book, index) => (
-                                <Grid item sm={4} md={4} lg={4} key={index}>
-                                    <BookCard book={book} />
-                                </Grid>
-                            ))
-                        }
+                {(!loadingMostReviewed && mostReviewedList.length !== 0) && (
+                    <Grid item sm={12} md={12} lg={12} >
+                        <Grid container spacing={2}>
+                                {mostReviewedList.map((review, index) => (
+                                    <Grid item sm={4} md={4} lg={4} key={index}>
+                                        <BookCard book={review.Book} />
+                                    </Grid>
+                                ))}
+                        </Grid>
                     </Grid>
-                </Grid>
+                )}
 
                 <Grid item sm={12} md={12} lg={12}>
                     <Divider title='Os mais queridinhos' />
                 </Grid>
-                <Beloved container>
-                    <Grid item sm={2} md={2} lg={2}>
-                        <Avatar className="avatarBeloved" variant="square" src="https://picsum.photos/200/300" />
-                    </Grid>
-                    <Grid item sm={2} md={2} lg={2}>
-                        <Card sx={{ minWidth: "100%", minHeight: "100%", justifyContent: "center" }}>
-                            <CardContent>
-                                <Typography variant="h5" component="div">
-                                    Nome do Livro
-                                </Typography>
-                                <Typography variant="body2">
-                                    Breve descrição do livro
-                                </Typography>
-                            </CardContent>
-                            <CardActions>
-                                <Button size="small">Saiba mais</Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
 
-                    <Grid item sm={2} md={2} lg={2}>
-                        <Avatar className="avatarBeloved" variant="square" src="https://picsum.photos/200/300" />
-                    </Grid>
-                    <Grid item sm={2} md={2} lg={2}>
-                        <Card sx={{ minWidth: "100%", minHeight: "100%" }}>
-                            <CardContent>
-                                <Typography variant="h5" component="div">
-                                    Nome do Livro
-                                </Typography>
-                                <Typography variant="body2">
-                                    Breve descrição do livro
-                                </Typography>
-                            </CardContent>
-                            <CardActions>
-                                <Button size="small">Saiba mais</Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                    <Grid item sm={2} md={2} lg={2}>
-                        <Avatar className="avatarBeloved" variant="square" src="https://picsum.photos/200/300" />
-                    </Grid>
-                    <Grid item sm={2} md={2} lg={2}>
-                        <Card sx={{ minWidth: "100%", minHeight: "100%" }}>
-                            <CardContent>
-                                <Typography variant="h5" component="div">
-                                    Nome do Livro
-                                </Typography>
-                                <Typography variant="body2">
-                                    Breve descrição do livro
-                                </Typography>
-                            </CardContent>
-                            <CardActions>
-                                <Button size="small">Saiba mais</Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                </Beloved>
+                {(!loadingBestReviewed && bestReviewedList !== null) && (
+                    <Beloved container>
+                        <Grid item sm={2} md={2} lg={2}>
+                            <Avatar className="avatarBeloved" variant="square" src={bestReviewedList.bestBookOne.Book.photo} />
+                        </Grid>
+                        <Grid item sm={2} md={2} lg={2}>
+                            <Card sx={{ minWidth: "100%", minHeight: "100%", justifyContent: "center" }}>
+                                <CardContent>
+                                    <Typography variant="h5" component="div">
+                                        {bestReviewedList.bestBookOne.Book.name}
+                                    </Typography>
+                                    <Typography variant="body2">
+                                        {bestReviewedList.bestBookOne.Book.synopsis}
+                                    </Typography>
+                                </CardContent>
+                                <CardActions>
+                                    <Button size="small" onClick={() => redirectCard(bestReviewedList.bestBookOne.Book.idBook)}>Saiba mais</Button>
+                                </CardActions>
+                            </Card>
+                        </Grid>
+
+                        <Grid item sm={2} md={2} lg={2}>
+                            <Avatar className="avatarBeloved" variant="square" src={bestReviewedList.bestBookTwo.Book.photo} />
+                        </Grid>
+                        <Grid item sm={2} md={2} lg={2}>
+                            <Card sx={{ minWidth: "100%", minHeight: "100%" }}>
+                                <CardContent>
+                                    <Typography variant="h5" component="div">
+                                        {bestReviewedList.bestBookTwo.Book.name}
+                                    </Typography>
+                                    <Typography variant="body2">
+                                        {bestReviewedList.bestBookTwo.Book.synopsis}
+                                    </Typography>
+                                </CardContent>
+                                <CardActions>
+                                    <Button size="small" onClick={() => redirectCard(bestReviewedList.bestBookTwo.Book.idBook)}>Saiba mais</Button>
+                                </CardActions>
+                            </Card>
+                        </Grid>
+                        <Grid item sm={2} md={2} lg={2}>
+                            <Avatar className="avatarBeloved" variant="square" src={bestReviewedList.bestBookThree.Book.photo} />
+                        </Grid>
+                        <Grid item sm={2} md={2} lg={2}>
+                            <Card sx={{ minWidth: "100%", minHeight: "100%" }}>
+                                <CardContent>
+                                    <Typography variant="h5" component="div">
+                                        {bestReviewedList.bestBookThree.Book.name}
+                                    </Typography>
+                                    <Typography variant="body2">
+                                        {bestReviewedList.bestBookThree.Book.synopsis}
+                                    </Typography>
+                                </CardContent>
+                                <CardActions>
+                                    <Button size="small" onClick={() => redirectCard(bestReviewedList.bestBookThree.Book.idBook)}>Saiba mais</Button>
+                                </CardActions>
+                            </Card>
+                        </Grid>
+                    </Beloved>
+                )}
             </MainContent>
         </Page>
     )

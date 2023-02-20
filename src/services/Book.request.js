@@ -8,4 +8,8 @@ export default class BookRequests {
 
         return RestApi.httpGet(`${this.ENDPOINT}/searchBook?${term}page=${page}&itens=${itens}`).then((response) => response);
     }
+
+    static async getLastBooks() {
+        return RestApi.httpGet(`${this.ENDPOINT}/getLastBooks`).then((response) => response);
+    }
 }
