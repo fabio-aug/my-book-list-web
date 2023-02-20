@@ -21,7 +21,7 @@ function Routes() {
             { path: '/listagem-de-livros', element: <BookList /> },
             { path: '/detalhes-do-livro', element: <BookDetails /> },
             { path: '/perfil-do-usuario/:idUser', element: <UserProfile /> },
-            { path: '/reviews-do-usuario/', element: <UserReviews /> }
+            { path: '/reviews-do-usuario/:idUser', element: <UserReviews /> }
         ]
     };
 
