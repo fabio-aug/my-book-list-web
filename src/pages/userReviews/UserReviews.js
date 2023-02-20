@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react'
 
-import {
-    Grid,
-    Pagination,
-    Typography,
-    FormControl,
-} from '@mui/material';
+import { Grid } from '@mui/material';
 
 import { useParams } from 'react-router-dom';
-import { PagesContainer } from './UserReviews.style';
-import { Page, Divider, SkeletonCard } from 'components';
-import { UserRequests} from 'services';
+import { Page } from 'components';
+import { ReviewRequests } from 'services';
 import { useSnackbar } from 'hooks';
 
 
@@ -18,84 +12,45 @@ function UserReviews() {
     const snackbar = useSnackbar();
     const { idUser } = useParams();
 
-
     const [userLoading, setUserLoading] = useState(false);
     const [loading] = useState(false);
 
-    const review = 0;
-    const [page, setPage] = useState(1);
-    const [pageCount, setPageCount] = useState(1);
+    const [reviewList, setReviewList] = useState([]);
+    const [reviewLoading, setReviewLoading] = useState(false);
 
-    /* useEffect(() => {
-        getUserDataById();
+    useEffect(() => {
+        getReviewsByIduser();
     }, [idUser]);
 
-    function getUserDataById() {
+    function getReviewsByIduser() {
         if (!idUser) return;
-        if (userLoading) return;
+        if (reviewLoading) return;
 
-        setUserLoading(true);
-        UserRequests.GetUserById(idUser).then((res) => {
+        setReviewLoading(true);
+        ReviewRequests.GetReviewsByIduser(idUser).then((res) => {
             if (res) {
-                setUserReviews(res);
+                const data = res.map((favorite) => (favorite.Book));
+                setReviewList(data);
             } else {
-                snackbar('Não foi possível buscar os dados do usuário.').warning();
+                snackbar('Não foi possível buscar as reviews do usuário.').warning();
             }
         }).catch((error) => {
-            snackbar('Erro ao buscar os dados do usuário.').error();
-        }).finally(() => setUserReviews(false));
-    } */
-
-    function loadingComponent() {
-        return (
-            <Grid container spacing={2} >
-                {new Array(4).fill(0).map((_, idx) => (
-                    <Grid item xs={12} sm={6} md={4} lg={3} key={idx}>
-                        <SkeletonCard />
-                    </Grid>
-                ))}
-            </Grid>
-        );
-    }
-
-    function hasNoReview() {
-        return (
-            <Typography
-                variant='h5'
-                gutterBottom
-                component='div'
-                textAlign='center'
-            >
-                Este usuário ainda não possui nenhuma review.
-            </Typography>
-        );
+            snackbar('Erro ao buscar as reviews do usuário.').error();
+        }).finally(() => setReviewLoading(false));
     }
 
     return (
         <Page title='Reviews do Usuário'>
             <Grid container justifyContent='center' spacing={2}>
                 <Grid item sm={12} md={12} lg={12}>
-                    <Divider title='Reviews de Usuário' />
-                </Grid>
-                <Grid item sm={12} md={12} lg={12}>
-                    {loading ? loadingComponent() : (
-                        <React.Fragment>
-                            {review === 0 ? hasNoReview() : (
-                                <Grid container spacing={2}>
-                                    <PagesContainer item xs={12} sm={12} md={12} lg={12} xl={12} justifyContent='center'>
-                                        <Pagination
-                                            count={pageCount}
-                                            page={page}
-                                        />
-                                    </PagesContainer>
-                                </Grid>
-                            )}
-                        </React.Fragment>
-                    )}
+                    <UserReviews
+                        reviewList={reviewList}
+                        loading={userLoading}
+                    />
                 </Grid>
             </Grid>
         </Page >
     );
 }
 
-export default UserReviews
+export default UserReviews;
