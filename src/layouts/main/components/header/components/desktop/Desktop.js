@@ -4,6 +4,7 @@ import {
     Menu, MenuItem, Tooltip
 } from '@mui/material';
 
+import { Mask } from 'modules';
 import { useHistory, useAuth } from 'hooks';
 import { GoToButton, ButtonAvatar } from './Desktop.styles';
 import { GlobalContext } from 'providers/global/GlobalProvider';
@@ -45,7 +46,7 @@ function Desktop() {
                     <Tooltip title="Opções">
                         <ButtonAvatar onClick={handleClick}>
                             <Avatar
-                                src={user.photo}
+                                src={Mask.formatBase64(user.photo, 'webp')}
                                 className='avatar'
                                 alt="Foto do usuário"
                             />

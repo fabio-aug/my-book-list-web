@@ -13,7 +13,7 @@ import { UserRequests } from 'services';
 import { useAuth, useSnackbar } from 'hooks';
 import { Modal } from './UserUpdateModal.styles';
 import { regex, masks, unmask, applyMask } from 'modules/Mask';
-import { FormikInput } from 'components/formElements';
+import { FormikInput, FormikImagePicker } from 'components/formElements';
 
 const validation = Yup.object({
     name: Yup.string()
@@ -50,7 +50,6 @@ function UserUpdateModal({ userData, open, setOpen }) {
     function handleUpdate(values, actions) {
         const dto = {
             idUser: userData.idUser,
-            photo: null,
             name: values.name,
             email: values.email,
             nickname: values.nickname,
@@ -58,6 +57,7 @@ function UserUpdateModal({ userData, open, setOpen }) {
             phone: unmask(values.phone),
             dateOfBirth: values.dateOfBirth,
             nationality: values.nationality,
+            photo: values.photo,
         }
 
         UserRequests.Update(dto).then((res) => {
@@ -84,6 +84,7 @@ function UserUpdateModal({ userData, open, setOpen }) {
             email: userData.email || '',
             nationality: userData.nationality || '',
             phone: applyMask(masks.cellphone, userData.phone) || '',
+            photo: userData.photo || '',
             password: ''
         },
         validationSchema: validation,
@@ -104,6 +105,12 @@ function UserUpdateModal({ userData, open, setOpen }) {
                             <Typography component="h6" variant="h3" align="center">
                                 Cadastro
                             </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                            <FormikImagePicker
+                                name='photo'
+                                formik={formik}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                             <FormikInput
