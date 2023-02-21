@@ -1,4 +1,4 @@
-import { styled,Grid } from '@mui/material';
+import { styled,Grid} from '@mui/material';
 
 export const MainBanner = styled(Grid)(({image, theme}) =>({
     width: "100%",
@@ -45,6 +45,16 @@ export const NewsCards = styled(Grid)(() =>({
     ".avatar":{
         minWidth: "100%",
         minHeight:"100%"
+    },
+    ".nameBook":{
+        fontSize: "25px",
+        marginBottom: "4px"
+    },
+    ".authorBook":{
+        fontSize: "18px"
+    },
+    ".synopsisBook":{
+        fontSize: "20px"
     }
 }));
 
@@ -60,5 +70,12 @@ export const Beloved = styled(Grid)(()=>({
     ".avatarBeloved":{
         minWidth: "100%",
         minHeight:"100%"
+    }
+}))
+
+export const GridBeloved = styled(Grid)(() => ({
+    ':hover': {
+        cursor: 'pointer',
+        transform: 'scale(1.05)'
     }
 }))
