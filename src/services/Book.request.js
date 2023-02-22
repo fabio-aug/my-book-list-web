@@ -12,4 +12,9 @@ export default class BookRequests {
     static async getLastBooks() {
         return RestApi.httpGet(`${this.ENDPOINT}/getLastBooks`).then((response) => response);
     }
+        // implementação para bookdetails
+    static async GetBookById(idBook) {
+        return RestApi.httpGet(`${this.ENDPOINT}/getById?id=${idBook}`).then((response) => response);
+    }
+
 }

@@ -18,4 +18,10 @@ export default class ReviewRequests {
     static async getBestReviewed() {
         return RestApi.httpGet(`${this.ENDPOINT}/getBestReviewed`).then((response) => response);
     }
+
+    // implementação para bookDetails
+    static async getLastReviews() {
+        return RestApi.httpGet(`${this.ENDPOINT}/getLastReviews`).then((response) => response);
+    }
+    
 }

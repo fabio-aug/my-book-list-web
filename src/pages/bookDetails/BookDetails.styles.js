@@ -7,22 +7,25 @@ export const Container = styled('div')(() => ({
 }));
 
 export const MainBanner = styled('div')(({image}) =>({
-    width: "100%",
-    height: 400,
+    width: "300px",
+    height: "300px",
     backgroundImage: `url(${image})`,
-    display: 'table'
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
 }));
 
 export const TitleBook = styled('h1')(() => ({
-    color: "white",
+    color: "red",
     display: 'table-cell',
     verticalAlign: 'middle',
     textAlign: 'center',
-    height: '300'
+    alignContent: 'center',
+    justifyContent: 'center',
+    height: '100',
 }));
 
 export const BookResume = styled('p')(() => ({
-    color: 'white',
+    color: 'red',
     display: 'table-cell',
     verticalAlign: 'middle',
     textAlign: 'center'
