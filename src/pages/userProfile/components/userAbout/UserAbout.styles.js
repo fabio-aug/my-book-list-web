@@ -14,5 +14,9 @@ export const Wrapper = styled(Grid)(() => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
+    },
+
+    '.Btn': {
+        margin: 10,
     }
 }));
