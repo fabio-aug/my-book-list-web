@@ -1,11 +1,5 @@
 import { styled } from '@mui/material';
 
-
-export const Container = styled('div')(() => ({
-    display: 'flex',
-    justifyContent: 'center'
-}));
-
 export const MainBanner = styled('div')(({image}) =>({
     width: "300px",
     height: "300px",
@@ -15,7 +9,7 @@ export const MainBanner = styled('div')(({image}) =>({
 }));
 
 export const TitleBook = styled('h1')(() => ({
-    color: "red",
+    color: "black",
     display: 'table-cell',
     verticalAlign: 'middle',
     textAlign: 'center',
@@ -23,13 +17,6 @@ export const TitleBook = styled('h1')(() => ({
     justifyContent: 'center',
     height: '100',
 }));
-
-export const BookResume = styled('p')(() => ({
-    color: 'red',
-    display: 'table-cell',
-    verticalAlign: 'middle',
-    textAlign: 'center'
-}))
 
 export const BookDescription = styled('h3')(({ theme }) => ({
     color: 'black',

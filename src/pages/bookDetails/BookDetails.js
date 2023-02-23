@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MainBanner, TitleBook, BookDescription } from './BookDetails.styles';
+import { MainBanner, TitleBook, BookDescription  } from './BookDetails.styles';
 import { useParams } from 'react-router-dom';
 
 import {
@@ -8,7 +8,7 @@ import {
     Typography,
 } from '@mui/material';
 
-import { Page, Divider, BookCard  } from 'components';
+import { Page, Divider, BookCard } from 'components';
 import { useSnackbar } from 'hooks';
 import { BookDetailsRequest } from 'services';
 
@@ -60,56 +60,41 @@ function BookDetails() {
 
     return (
         <Page title='detalhes-do-livro' isFullHeight isFullWidth>
-            <Grid 
-                item sm={12} md={12} lg={12}
-                container
-                direction="row"
-                justifyContent="flex-start"
-                alignItems="baseline"
-            >
-            <Grid item md={4} alignItems="center">
-            <MainBanner image={bookData.photo}>
-                <Box sx={{ flexGrow: 1 }}>
-                    <Grid item xs={12} container spacing={0} direction="column" justifyContent="flex-end" alignItems="center">
-                        <TitleBook alignItems="center">
-                            <Typography variant="h1" component="h2" >
-                                {bookData.name}
-                            </Typography>
-                        </TitleBook>
-                    </Grid>
-                </Box>
-            </MainBanner>
-            </Grid>
-
-            <Grid item md={8} justifyContent="flex-start" alignItems="baseline">
-            <Grid container spacing={2} columns={12}>
-                <Grid item xs={2}>
-                    <BookDescription >
-                        {bookData.author}
-                    </BookDescription>
-                    <BookDescription >
-                        {bookData.dateOfPublication}
-                    </BookDescription>
-                    <BookDescription >
-                        {bookData.publisher}
-                    </BookDescription>
+            <Grid container item sm={12} md={12} lg={12} >
+                <Grid item md={4} alignItems="center">
+                    <MainBanner image={bookData.photo}>
+                        <Box sx={{ flexGrow: 1 }}>
+                            <Grid item xs={12} container spacing={0} direction="column" justifyContent="flex-end" alignItems="center">
+                                <TitleBook alignItems="center">
+                                    <Typography variant="h1" component="h2" >
+                                        {bookData.name}
+                                    </Typography>
+                                </TitleBook>
+                                <BookDescription >
+                                    {bookData.author}
+                                </BookDescription>
+                                <BookDescription >
+                                    {bookData.dateOfPublication}
+                                </BookDescription>
+                                <BookDescription >
+                                    {bookData.publisher}
+                                </BookDescription>
+                            </Grid>
+                        </Box>
+                    </MainBanner>
+                </Grid>
+                <Grid item md={6} justifyContent="flex-start" alignItems="center">
                     <BookDescription >
                         {bookData.synopsis}
                     </BookDescription>
                 </Grid>
             </Grid>
-            </Grid>
-            </Grid>
 
             <Grid item sm={12} md={12} lg={12}>
-                    <Divider title='Últimas reviews' />
+                <Divider title='Últimas reviews'/>
             </Grid>
-            <Grid item sm={12} md={12} lg={12} 
-              container
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-            >
+
+            <Grid container item sm={12} md={12} lg={12}>
                 {(!loadingLastReviews && LastReviewsList.length !== 0) && (
                     <Grid item sm={12} md={12} lg={12} >
                         <Grid container spacing={2}>
@@ -121,7 +106,7 @@ function BookDetails() {
                         </Grid>
                     </Grid>
                 )}
-                </Grid>
+            </Grid>
         </Page>
     );
 }
