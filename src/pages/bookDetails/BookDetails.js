@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BookResume, MainBanner, TitleBook, BookDescription } from './BookDetails.styles';
+import { MainBanner, TitleBook, BookDescription } from './BookDetails.styles';
 import { useParams } from 'react-router-dom';
 
 import {
@@ -8,25 +8,19 @@ import {
     Typography,
 } from '@mui/material';
 
-import { Page, Divider, SkeletonCard, BookCard  } from 'components';
+import { Page, Divider, BookCard  } from 'components';
 import { useSnackbar } from 'hooks';
-import { Image } from 'assets';
-
-import { BookRequests } from 'services';
-import { ReviewRequests } from 'services';
-import { Photo } from '@mui/icons-material';
-
-
+import { BookDetailsRequest } from 'services';
 
 function BookDetails() {
 
-    const [mostReviewedList, setMostReviewedList] = useState([]);
-    const [loadingMostReviewed, setLoadingMostReviewed] = useState(false);
-
-    // bookDetails
     const snackbar = useSnackbar();
     const { idBook } = useParams();
     const [bookData, setBookData] = useState(null);
+
+    const [LastReviewsList, setLastReviewsList] = useState([]);
+    const [loadingLastReviews, setLoadingLastReviews] = useState(false);
+
 
     useEffect(() => {
         GetBookById();
@@ -38,7 +32,7 @@ function BookDetails() {
     useEffect(componentDidMount, []);
 
     function GetBookById() {
-        BookRequests.GetBookById(idBook).then((res) => {
+        BookDetailsRequest.GetBookById(idBook).then((res) => {
             if (res) {
                 setBookData(res);
             } else {
@@ -52,26 +46,17 @@ function BookDetails() {
         return <p>Carregando...</p>
     }
 
-    
-
-    // review
-    //const [bookReviews, setBookReviews] = useState([]);
-    //const [loading, setLoading] = useState(false);
-
     function getLastReviews() {
-        if (loadingMostReviewed) return;
-        setLoadingMostReviewed(true);
-        ReviewRequests.getLastReviews().then((res) => {
+        if (loadingLastReviews) return;
+        setLoadingLastReviews(true);
+        BookDetailsRequest.getLastReviews().then((res) => {
             if (res.status) {
-                setMostReviewedList(res.data.bookList);
+                setLastReviewsList(res.data.bookList);
             }
         }).catch((error) => {
             snackbar('Erro ao buscar livro.').error();
-        }).finally(() => setLoadingMostReviewed(false));
+        }).finally(() => setLoadingLastReviews(false));
     }
-
-
-
 
     return (
         <Page title='detalhes-do-livro' isFullHeight isFullWidth>
@@ -93,8 +78,6 @@ function BookDetails() {
                         </TitleBook>
                     </Grid>
                 </Box>
-
-            
             </MainBanner>
             </Grid>
 
@@ -116,23 +99,29 @@ function BookDetails() {
                 </Grid>
             </Grid>
             </Grid>
-
             </Grid>
 
             <Grid item sm={12} md={12} lg={12}>
-                <Divider title='Últimas reviews' />
-                {(!loadingMostReviewed && mostReviewedList.length !== 0) && (
+                    <Divider title='Últimas reviews' />
+            </Grid>
+            <Grid item sm={12} md={12} lg={12} 
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+                {(!loadingLastReviews && LastReviewsList.length !== 0) && (
                     <Grid item sm={12} md={12} lg={12} >
                         <Grid container spacing={2}>
-                            {mostReviewedList.map((review, index) => (
-                                <Grid item sm={12} md={12} lg={12} key={index}>
+                            {LastReviewsList.map((review, index) => (
+                                <Grid item sm={4} md={4} lg={4} key={index} >
                                     <BookCard book={review.Book} />
                                 </Grid>
                             ))}
                         </Grid>
                     </Grid>
                 )}
-            </Grid>
+                </Grid>
         </Page>
     );
 }
