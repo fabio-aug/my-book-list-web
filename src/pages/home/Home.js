@@ -3,7 +3,7 @@ import { Button, CardContent, Card, Typography, Grid, CardActions, Avatar, Paper
 import { Image } from 'assets';
 import { useSnackbar, useHistory } from 'hooks';
 import { Page, Divider, BookCard } from 'components';
-import { MainBanner, MainContent, Beloved, NewsCards } from './Home.style';
+import { MainBanner, MainContent, Beloved, NewsCards, GridBeloved } from './Home.style';
 import { BookRequests, ReviewRequests } from "services";
 import { GlobalContext } from 'providers/global/GlobalProvider';
 
@@ -17,7 +17,7 @@ function Home() {
     const [lastBooksList, setLastBooksList] = useState(null);
     const [loadingLastBooks, setLoadingLastBooks] = useState(false);
 
-    const [bestReviewedList, setBestReviewedList] = useState(null);
+    const [bestReviewedList, setBestReviewedList] = useState([]);
     const [loadingBestReviewed, setLoadingBestReviewed] = useState(false);
 
     const [mostReviewedList, setMostReviewedList] = useState([]);
@@ -49,7 +49,7 @@ function Home() {
         setLoadingBestReviewed(true);
         ReviewRequests.getBestReviewed().then((res) => {
             if (res.status) {
-                setBestReviewedList(res.data);
+                setBestReviewedList(res.data.bookList);
             }
         }).catch((error) => {
             snackbar('Erro ao buscar livro.').error();
@@ -63,7 +63,6 @@ function Home() {
             if (res.status) {
                 setMostReviewedList(res.data.bookList);
             }
-            console.log(res)
         }).catch((error) => {
             snackbar('Erro ao buscar livro.').error();
         }).finally(() => setLoadingMostReviewed(false));
@@ -90,7 +89,7 @@ function Home() {
                         </Paper>
                     </Grid>
                 </Grid>
-                <Grid item md={4}>
+                <Grid item md={4} height={'100%'}>
                     <Avatar className="newImage" variant="square" src={Image.Banner} />
                 </Grid>
             </MainBanner>
@@ -109,13 +108,13 @@ function Home() {
                             <Grid item md={6}>
                                 <Card sx={{ minWidth: 275, minHeight: 275 }}>
                                     <CardContent>
-                                        <Typography variant="h5" component="div">
+                                        <Typography variant="h1" className="nameBook">
                                             {lastBooksList.lastBookOne.name}
                                         </Typography>
-                                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                        <Typography sx={{ mb: 1.5 }} color="text.secondary" className="authorBook">
                                             {lastBooksList.lastBookOne.author}
                                         </Typography>
-                                        <Typography variant="body2">
+                                        <Typography variant="body2" className="synopsisBook">
                                             {lastBooksList.lastBookOne.synopsis}
                                         </Typography>
                                     </CardContent>
@@ -129,13 +128,13 @@ function Home() {
                             <Grid item md={6}>
                                 <Card sx={{ minWidth: 275, minHeight: 275 }}>
                                     <CardContent>
-                                        <Typography variant="h5" component="div">
+                                        <Typography variant="h1" className="nameBook">
                                             {lastBooksList.lastBookTwo.name}
                                         </Typography>
-                                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                                        <Typography sx={{ mb: 1.5 }} color="text.secondary" className="authorBook">
                                             {lastBooksList.lastBookTwo.author}
                                         </Typography>
-                                        <Typography variant="body2">
+                                        <Typography variant="body2" className="synopsisBook">
                                             {lastBooksList.lastBookTwo.synopsis}
                                         </Typography>
                                     </CardContent>
@@ -158,11 +157,11 @@ function Home() {
                 {(!loadingMostReviewed && mostReviewedList.length !== 0) && (
                     <Grid item sm={12} md={12} lg={12} >
                         <Grid container spacing={2}>
-                                {mostReviewedList.map((review, index) => (
-                                    <Grid item sm={4} md={4} lg={4} key={index}>
-                                        <BookCard book={review.Book} />
-                                    </Grid>
-                                ))}
+                            {mostReviewedList.map((review, index) => (
+                                <Grid item sm={4} md={4} lg={4} key={index}>
+                                    <BookCard book={review.Book} />
+                                </Grid>
+                            ))}
                         </Grid>
                     </Grid>
                 )}
@@ -171,63 +170,27 @@ function Home() {
                     <Divider title='Os mais queridinhos' />
                 </Grid>
 
-                {(!loadingBestReviewed && bestReviewedList !== null) && (
-                    <Beloved container>
-                        <Grid item sm={2} md={2} lg={2}>
-                            <Avatar className="avatarBeloved" variant="square" src={bestReviewedList.bestBookOne.Book.photo} />
-                        </Grid>
-                        <Grid item sm={2} md={2} lg={2}>
-                            <Card sx={{ minWidth: "100%", minHeight: "100%", justifyContent: "center" }}>
-                                <CardContent>
-                                    <Typography variant="h5" component="div">
-                                        {bestReviewedList.bestBookOne.Book.name}
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        {bestReviewedList.bestBookOne.Book.synopsis}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small" onClick={() => redirectCard(bestReviewedList.bestBookOne.Book.idBook)}>Saiba mais</Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-
-                        <Grid item sm={2} md={2} lg={2}>
-                            <Avatar className="avatarBeloved" variant="square" src={bestReviewedList.bestBookTwo.Book.photo} />
-                        </Grid>
-                        <Grid item sm={2} md={2} lg={2}>
-                            <Card sx={{ minWidth: "100%", minHeight: "100%" }}>
-                                <CardContent>
-                                    <Typography variant="h5" component="div">
-                                        {bestReviewedList.bestBookTwo.Book.name}
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        {bestReviewedList.bestBookTwo.Book.synopsis}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small" onClick={() => redirectCard(bestReviewedList.bestBookTwo.Book.idBook)}>Saiba mais</Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                        <Grid item sm={2} md={2} lg={2}>
-                            <Avatar className="avatarBeloved" variant="square" src={bestReviewedList.bestBookThree.Book.photo} />
-                        </Grid>
-                        <Grid item sm={2} md={2} lg={2}>
-                            <Card sx={{ minWidth: "100%", minHeight: "100%" }}>
-                                <CardContent>
-                                    <Typography variant="h5" component="div">
-                                        {bestReviewedList.bestBookThree.Book.name}
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        {bestReviewedList.bestBookThree.Book.synopsis}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small" onClick={() => redirectCard(bestReviewedList.bestBookThree.Book.idBook)}>Saiba mais</Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>
+                {(!loadingBestReviewed && bestReviewedList.length !== 0) && (
+                    <Beloved container sm={12} md={12} lg={12} spacing={2}>
+                        {bestReviewedList.map(({ Book }, index) => (
+                            <GridBeloved container item sm={4} md={4} lg={4} key={index} onClick={() => redirectCard(Book.idBook)}>
+                                <Grid item sm={6} md={6} lg={6}>
+                                    <Avatar className="avatarBeloved" variant="square" src={Book.photo} />
+                                </Grid>
+                                <Grid item sm={6} md={6} lg={6}>
+                                    <Card sx={{ minWidth: "100%", minHeight: "100%", justifyContent: "center" }}>
+                                        <CardContent>
+                                            <Typography variant="h5" component="div">
+                                                {Book.name}
+                                            </Typography>
+                                            <Typography variant="body2">
+                                                {Book.synopsis}
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            </GridBeloved>
+                        ))}
                     </Beloved>
                 )}
             </MainContent>

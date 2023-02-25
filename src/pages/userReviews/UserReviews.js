@@ -4,6 +4,7 @@ import { Grid } from '@mui/material';
 
 import { useParams } from 'react-router-dom';
 import { Page } from 'components';
+import { Reviews } from './components';
 import { ReviewRequests } from 'services';
 import { useSnackbar } from 'hooks';
 
@@ -21,6 +22,7 @@ function UserReviews() {
     useEffect(() => {
         getReviewsByIduser();
     }, [idUser]);
+
 
     function getReviewsByIduser() {
         if (!idUser) return;
@@ -43,7 +45,7 @@ function UserReviews() {
         <Page title='Reviews do Usuário'>
             <Grid container justifyContent='center' spacing={2}>
                 <Grid item sm={12} md={12} lg={12}>
-                    <UserReviews
+                    <Reviews
                         reviewList={reviewList}
                         loading={userLoading}
                     />

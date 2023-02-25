@@ -11,7 +11,9 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { LoadingButton } from '@mui/lab';
+import { useParams } from 'react-router-dom';
 
+import { useHistory } from 'hooks';
 import { Mask } from 'modules';
 import { Image } from 'assets';
 import { Divider } from 'components';
@@ -52,6 +54,9 @@ function UserAbout({
             </Typography>
         );
     }
+
+    const history = useHistory();
+    const { idUser } = useParams();
 
     return (
         <Wrapper container justifyContent='center' spacing={2}>
@@ -104,6 +109,14 @@ function UserAbout({
                                             {isFriendShip ? 'Seguindo' : 'Seguir'}
                                         </LoadingButton>
                                     )}
+                                    
+                                    <Button
+                                        onClick={() => history.redirectTo(`/reviews-do-usuario/${idUser}`)}
+                                        variant='contained'
+                                        className='Btn'
+                                    >
+                                        Reviews
+                                    </Button>
                                 </CardContent>
                             </Card>
                         )}
