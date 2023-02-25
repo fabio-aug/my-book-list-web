@@ -6,7 +6,7 @@ function FormikSelect({ name, formik, options, label, ...rest }) {
     const isError = formik.touched[name] && Boolean(formik.errors[name]);
 
     return (
-        <FormControl error={isError}>
+        <FormControl error={isError} sx={{ width: '100%' }}>
             <InputLabel
                 id={`select-inputLabel-${name}`}
             >
