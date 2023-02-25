@@ -19,7 +19,7 @@ function Routes() {
         element: <MainLayout />,
         children: [
             { path: '/listagem-de-livros', element: <BookList /> },
-            { path: '/detalhes-do-livro', element: <BookDetails /> },
+            { path: '/detalhes-do-livro/:idBook', element: <BookDetails /> },
             { path: '/perfil-do-usuario/:idUser', element: <UserProfile /> },
             { path: '/reviews-do-usuario/:idUser', element: <UserReviews /> }
         ]
