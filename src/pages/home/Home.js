@@ -29,6 +29,7 @@ function Home() {
         getBestReviewed();
         getMostReviewed();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(componentDidMount, []);
 
     function getLastBooks() {

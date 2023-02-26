@@ -1,12 +1,11 @@
 import { useParams } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
+import Skeleton from '@mui/material/Skeleton';
 import React, { useState, useEffect } from 'react';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
 import { Grid, Box, Typography, IconButton } from '@mui/material';
-import Skeleton from '@mui/material/Skeleton';
-import Stack from '@mui/material/Stack';
 
 import { Image } from 'assets';
 import { Mask } from 'modules';

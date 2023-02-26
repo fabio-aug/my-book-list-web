@@ -29,6 +29,7 @@ function ReviewList() {
     function componentDidMount() {
         getReviewsByIduser();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(componentDidMount, [idUser]);
 
     function getReviewsByIduser() {
@@ -88,7 +89,10 @@ function ReviewList() {
     }
 
     function returnModal(data) {
-        const index = reviewList.findIndex((rv) => rv.idUser == data.idUser && rv.idBook == data.idBook);
+        const index = reviewList.findIndex((rv) =>
+            parseInt(rv.idUser) === parseInt(data.idUser) &&
+            parseInt(rv.idBook) === parseInt(data.idBook)
+        );
         if (index >= 0) {
             const aux = reviewList;
             aux[index] = {

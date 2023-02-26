@@ -29,6 +29,7 @@ function BookList() {
     function componentDidMount() {
         searchBook(bookSearch, 1);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(componentDidMount, []);
 
     function onChangeInput(text) {
