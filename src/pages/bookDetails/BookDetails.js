@@ -40,6 +40,7 @@ function BookDetails() {
         getReviewByIds();
         verifyIsFavorite();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(componentDidMount, [idBook]);
 
     function getBookById() {
@@ -210,7 +211,7 @@ function BookDetails() {
     }
 
     return (
-        <Page title='detalhes-do-livro' isFullHeight isFullWidth>
+        <Page title='Detalhes do livro' isFullHeight isFullWidth>
             <Grid container justifyContent='center' spacing={2} sx={{ mb: '40px' }}>
                 {bookDataLoading ? loadingComponent() : (
                     <React.Fragment>

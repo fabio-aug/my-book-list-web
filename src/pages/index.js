@@ -4,7 +4,6 @@ import UserProfile from './userProfile/UserProfile';
 import BookDetails from './bookDetails/BookDetails';
 import UserReviews from './userReviews/UserReviews';
 
-
 export {
     Home,
     BookList,

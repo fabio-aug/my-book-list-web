@@ -94,13 +94,14 @@ function ReviewModal({ isCreate, open, setOpen, idUser, idBook, returnFunction, 
     });
 
     useEffect(() => {
-        if (reviewData === null && isCreate) return;
+        if (reviewData === null || isCreate) return;
 
         formik.setValues({
             score: reviewData.score,
             status: reviewData.status,
             note: reviewData.note
-        })
+        });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [open]);
 
     return (
