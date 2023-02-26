@@ -5,6 +5,7 @@ import {
 } from '@mui/material';
 
 export const Card = styled(CardMUI)(() => ({
+    minHeight: '100%',
     ':hover': {
         cursor: 'pointer',
         transform: 'scale(1.05)'

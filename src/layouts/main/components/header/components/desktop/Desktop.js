@@ -38,9 +38,6 @@ function Desktop() {
             <GoToButton variant='text' onClick={() => history.redirectTo('/listagem-de-livros')}>
                 Livros
             </GoToButton>
-            <GoToButton variant='text' onClick={() => history.redirectTo('/listagem-de-usuarios')}>
-                Usuários
-            </GoToButton>
             {isAuthenticated ? (
                 <>
                     <Tooltip title="Opções">

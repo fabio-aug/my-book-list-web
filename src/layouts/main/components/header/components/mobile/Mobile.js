@@ -51,11 +51,6 @@ function Mobile() {
                             <ListItemText primary="Livros" />
                         </ListItemButton>
                     </ListItem>
-                    <ListItem disablePadding>
-                        <ListItemButton onClick={() => redirect('/listagem-de-usuarios')}>
-                            <ListItemText primary="Usuários" />
-                        </ListItemButton>
-                    </ListItem>
                 </List>
 
                 <Divider />
