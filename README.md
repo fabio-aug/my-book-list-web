@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# My Book List 📚
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Grupo 👥
 
-## Available Scripts
+- [Fábio Augusto Araújo Santos](https://github.com/fabio-aug)
+- [Luana Assis Silva](https://github.com/luanaassis)
+- [Vinícius Dalcantoni Horta Barbosa](https://github.com/ViniDalca)
+- [Bruno de Oliveira Silva](https://github.com/Brunodev77)
+- Matheus Santiago de Andrade Marques
 
-In the project directory, you can run:
+## Introdução 💡
 
-### `npm start`
+O My Book List é uma rede social destinada a leitores.</br>
+Na plataforma, estão disponíveis as seguintes funcionalidades:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Criar listas das suas obras lidas, com leitura em andamento, leituras paradas e as que estão na sua lista de desejos;
+- Adicionar detalhes a cada obra contida em suas listas, como: nota, review e status;
+- Adicionar amigos e visualizar perfis de outros usuários.
+- Personalizar seu próprio perfil, alterando sua foto e nome e definindo seus livros favoritos.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+A ideia do projeto surgiu a partir de um interesse em comum: a **leitura**. A leitura traz diversos benefícios, tanto no âmbito pessoal como profissional, visto que desenvolve o pensamento crítico, diminui o estresse, aumenta o vocabulário, expande a criatividade, exercita o cérebro e aumenta a concentração, dentre outras inúmeras vantagens. </br>
+Visto isso, em um mundo integrado com o virtual, a plataforma foi criada no intuito de incentivar a leitura e integrar pessoas.
 
-### `npm test`
+## Código Fonte 👾
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Para o desenvolvimento o projeto foi dividido em duas seções, seguindo uma estrutura MVC e HTTP/REQUEST.
 
-### `npm run build`
+### [Front-End](https://github.com/fabio-aug/my-book-list-web)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+O front-end do projeto foi desenvolvido com [React JS](https://pt-br.reactjs.org/).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Para rodar é necessário executar `npm install` para baixar suas dependências. Com as dependências instaladas, para inciar é necessário o comando `npm start`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Ambos os comando devem ser executados na pasta raiz.
 
-### `npm run eject`
+### [Back-End](https://github.com/fabio-aug/my-book-list-back)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+O back-end do projeto foi desenvolvido com [Node JS](https://nodejs.org/en/), utilizando a biblioteca [Express](https://expressjs.com/pt-br/).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Para rodar é necessário executar `npm install` para baixar suas dependências. Com as dependências instaladas, pode-se inciar o projeto, que pode ser executado de duas formas.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+A primeira delas como desenvolvedor, a partir do comando `npm run dev`, onde será inciado através da biblioteca [nodemon](https://nodemon.io/). A segunda forma é como deve ser feito em produção/servidor, através do comando `npm run start` ou `node ./src/server.js`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+A documentação do projeto é feita a partir do [Swagger](https://swagger.io/). Para inciar o processo de gerar/atualizar a documentação de forma automática é necessário executar o comando `npm run doc`.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Ambos os comando devem ser executados na pasta raiz.
