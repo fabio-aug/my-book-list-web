@@ -108,13 +108,13 @@ function Home() {
                                 <Card sx={{ minWidth: 275, minHeight: 275 }}>
                                     <CardContent>
                                         <Typography variant="h1" className="nameBook">
-                                            {lastBooksList.lastBookOne.name}
+                                            {Mask.redutorString(lastBooksList.lastBookOne.name, 35)}
                                         </Typography>
                                         <Typography sx={{ mb: 1.5 }} color="text.secondary" className="authorBook">
-                                            {lastBooksList.lastBookOne.author}
+                                            {Mask.redutorString(lastBooksList.lastBookOne.author, 30)}
                                         </Typography>
                                         <Typography variant="body2" className="synopsisBook">
-                                            {lastBooksList.lastBookOne.synopsis}
+                                            {Mask.redutorString(lastBooksList.lastBookOne.synopsis, 200)}
                                         </Typography>
                                     </CardContent>
 
@@ -128,13 +128,13 @@ function Home() {
                                 <Card sx={{ minWidth: 275, minHeight: 275 }}>
                                     <CardContent>
                                         <Typography variant="h1" className="nameBook">
-                                            {lastBooksList.lastBookTwo.name}
+                                            {Mask.redutorString(lastBooksList.lastBookTwo.name, 35)}
                                         </Typography>
                                         <Typography sx={{ mb: 1.5 }} color="text.secondary" className="authorBook">
-                                            {lastBooksList.lastBookTwo.author}
+                                            {Mask.redutorString(lastBooksList.lastBookTwo.author, 30)}
                                         </Typography>
                                         <Typography variant="body2" className="synopsisBook">
-                                            {lastBooksList.lastBookTwo.synopsis}
+                                            {Mask.redutorString(lastBooksList.lastBookTwo.synopsis, 200)}
                                         </Typography>
                                     </CardContent>
                                     <CardActions>
@@ -180,7 +180,7 @@ function Home() {
                                     <Card sx={{ minWidth: "100%", minHeight: "100%", justifyContent: "center" }}>
                                         <CardContent>
                                             <Typography variant="h5" component="div">
-                                                {Mask.redutorString(Book.author, 25)}
+                                                {Mask.redutorString(Book.name, 25)}
                                             </Typography>
                                             <Typography variant="body2">
                                                 {Mask.redutorString(Book.synopsis, 65)}
