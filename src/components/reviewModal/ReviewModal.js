@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import PropTypes from 'prop-types';
@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 import { useSnackbar } from 'hooks';
-import { UserRequests } from 'services';
+import { ReviewRequests } from 'services';
 import { Modal } from './ReviewModal.styles';
 import { FormikInput, FormikSelect } from 'components/formElements';
 
@@ -21,20 +21,29 @@ const validationSchema = Yup.object({
         .max(1000, 'A nota não pode ultrapassar 1000 caracteres.'),
 });
 
-function ReviewModal({ isCreate, open, setOpen, reviewData }) {
+function ReviewModal({ isCreate, open, setOpen, idUser, idBook, returnFunction, reviewData }) {
     const snackbar = useSnackbar();
 
     function create(values, actions) {
         const dto = {
-            idBook: 0,
-            idUser: 0,
+            idBook: parseInt(idBook),
+            idUser: parseInt(idUser),
             score: values.score,
             status: values.status,
             note: values.note,
             dateOfReview: new Date()
         }
 
-        actions.setSubmitting(false);
+        ReviewRequests.CreateReview(dto).then((res) => {
+            if (res.status && res.data !== null) {
+                returnFunction(res.data);
+                snackbar('Review criada com sucesso!').success();
+            } else {
+                snackbar('Não foi possível criar review!').warning();
+            }
+        }).catch(() => {
+            snackbar('Erro ao criar review!').error();
+        }).finally(() => actions.setSubmitting(false));
     }
 
     function update(values, actions) {
@@ -46,8 +55,17 @@ function ReviewModal({ isCreate, open, setOpen, reviewData }) {
             note: values.note,
             dateOfReview: reviewData.dateOfReview
         }
-        
-        actions.setSubmitting(false);
+
+        ReviewRequests.UpdateReview(dto).then((res) => {
+            if (res.status && res.data !== null) {
+                returnFunction(dto);
+                snackbar('Review atualizada com sucesso!').success();
+            } else {
+                snackbar('Não foi possível atualizar review!').warning();
+            }
+        }).catch(() => {
+            snackbar('Erro ao atualizar review!').error();
+        }).finally(() => actions.setSubmitting(false));
     }
 
     function handleSubmit(values, actions) {
@@ -58,20 +76,32 @@ function ReviewModal({ isCreate, open, setOpen, reviewData }) {
         }
     }
 
+    function closeModal() {
+        if (formik.isSubmitting) return;
+
+        setOpen(false);
+        formik.resetForm();
+    }
+
     const formik = useFormik({
         initialValues: {
-            score: isCreate ? 10 : reviewData.score,
-            status: isCreate ? 1 : reviewData.status,
-            note: isCreate ? '' : reviewData.note
+            score: 10,
+            status: 1,
+            note: ''
         },
         validationSchema,
         onSubmit: handleSubmit
     });
 
-    function closeModal() {
-        setOpen(false);
-        formik.resetForm();
-    }
+    useEffect(() => {
+        if (reviewData === null && isCreate) return;
+
+        formik.setValues({
+            score: reviewData.score,
+            status: reviewData.status,
+            note: reviewData.note
+        })
+    }, [open]);
 
     return (
         <Modal open={open} onClose={closeModal}>
@@ -152,6 +182,9 @@ ReviewModal.propTypes = {
     isCreate: PropTypes.bool.isRequired,
     open: PropTypes.bool.isRequired,
     setOpen: PropTypes.func.isRequired,
+    idUser: PropTypes.number.isRequired,
+    idBook: PropTypes.number.isRequired,
+    returnFunction: PropTypes.func,
     reviewData: PropTypes.object
 }
 

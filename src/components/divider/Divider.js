@@ -10,7 +10,7 @@ import { Wrapper } from './Divider.style';
 function Divider({ title, action, ...rest }) {
     return (
         <Wrapper {...rest}>
-            <div className='box'>
+            <div className='box-divider'>
                 <Typography
                     variant='h3'
                     component='div'

@@ -75,7 +75,7 @@ function UserProfile() {
             } else {
                 snackbar('Não foi possível buscar os dados do usuário.').warning();
             }
-        }).catch((error) => {
+        }).catch(() => {
             snackbar('Erro ao buscar os dados do usuário.').error();
         }).finally(() => setUserLoading(false));
     }
@@ -185,7 +185,6 @@ function UserProfile() {
                 snackbar('Não foi possível deixar de seguir usuário').warning();
             }
         }).catch((error) => {
-            console.log(error)
             snackbar('Erro ao deixar de seguir usuário').error();
         }).finally(() => setDeleteFriendshipLoading(false));
     }

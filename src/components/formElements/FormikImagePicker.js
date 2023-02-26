@@ -15,7 +15,6 @@ function FormikImagePicker(props) {
     const handleChange = async (e) => {
         const file = e.target.files[0];
         
-        console.log(file)
         if (!file) return;
         const fileSize = ((file.size / 1024) / 1024).toFixed(4);
         if (fileSize > fileSizeLimt) return setSizeError(`Arquivo maior que ${fileSizeLimt}Mb`);
