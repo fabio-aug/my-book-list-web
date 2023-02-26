@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Button, CardContent, Card, Typography, Grid, CardActions, Avatar, Paper } from '@mui/material';
+import { Button, CardContent, Card, Typography, Grid, CardActions, Avatar, Paper} from '@mui/material';
 
 import { Mask } from 'modules';
 import { Image } from 'assets';
 import { useSnackbar, useHistory } from 'hooks';
 import { Page, Divider, BookCard } from 'components';
-import { MainBanner, MainContent, Beloved, NewsCards, GridBeloved } from './Home.style';
+import { MainBanner, MainContent, Beloved, NewsCards, GridBeloved,SubGrid} from './Home.style';
 import { BookRequests, ReviewRequests } from "services";
 import { GlobalContext } from 'providers/global/GlobalProvider';
 
@@ -74,22 +74,19 @@ function Home() {
     return (
         <Page title='Home' isFullHeight isFullWidth>
             <MainBanner container alignItems="center" image={Image.Estante}>
-                <Grid item md={8}>
+                <Grid item md={12}>
                     <Typography className="maintitle" variant="h1">
                         Bem-vindo ao My Book List
                     </Typography>
                     <Typography className="subtitle" variant="h3" component="h3">
                         Listas e livros para todos os gostos
                     </Typography>
-                    <Grid item md={6} className="subscribe">
-                        <Paper elevation={1} square className="paper">
+                     <SubGrid item md={12} className="subscribe">
+                        <Paper variant="outlined" className="paper">
                             Participe da nossa comunidade
                             <Button className="button" variant='contained' onClick={() => setRegister(true)}> Cadastre-se </Button>
                         </Paper>
-                    </Grid>
-                </Grid>
-                <Grid item md={4} height={'100%'}>
-                    <Avatar className="newImage" variant="square" src={Image.Banner} />
+                    </SubGrid>
                 </Grid>
             </MainBanner>
             <MainContent container spacing={2}>
@@ -99,12 +96,17 @@ function Home() {
                 </Grid>
 
                 {(!loadingLastBooks && lastBooksList !== null) && (
-                    <Grid item sm={12} md={12} lg={12}>
+                    <Grid item xs={12} sm={12} md={12} lg={12}>
                         <NewsCards container justifyContent="center">
-                            <Grid item md={6}>
-                                <Avatar className="avatar" variant="square" src={lastBooksList.lastBookOne.photo} />
+                            <Grid item xs={12} sm={12} md={6} lg={6}>
+                                <Avatar
+                                    src={Mask.formatBase64(lastBooksList.lastBookOne.photo, 'webp') || Image.Book}
+                                    title='Imagem da capa do livro'
+                                    className='avatar'
+                                    variant='square'
+                                />
                             </Grid>
-                            <Grid item md={6}>
+                            <Grid item xs={12} sm={12} md={6} lg={6}>
                                 <Card sx={{ minWidth: 275, minHeight: 275 }}>
                                     <CardContent>
                                         <Typography variant="h1" className="nameBook">
@@ -124,7 +126,7 @@ function Home() {
 
                                 </Card>
                             </Grid>
-                            <Grid item md={6}>
+                            <Grid item xs={12} sm={12} md={6} lg={6}>
                                 <Card sx={{ minWidth: 275, minHeight: 275 }}>
                                     <CardContent>
                                         <Typography variant="h1" className="nameBook">
@@ -142,8 +144,13 @@ function Home() {
                                     </CardActions>
                                 </Card>
                             </Grid>
-                            <Grid item md={6}>
-                                <Avatar className="avatar" variant="square" src={lastBooksList.lastBookTwo.photo} />
+                            <Grid item xs={12} sm={12} md={6} lg={6}>
+                                <Avatar
+                                    src={Mask.formatBase64(lastBooksList.lastBookTwo.photo) || Image.Book}
+                                    title='Imagem da capa do livro'
+                                    className='avatar'
+                                    variant='square'
+                                />
                             </Grid>
                         </NewsCards>
                     </Grid>
@@ -170,13 +177,13 @@ function Home() {
                 </Grid>
 
                 {(!loadingBestReviewed && bestReviewedList.length !== 0) && (
-                    <Beloved container sm={12} md={12} lg={12} spacing={2}>
+                    <Beloved container spacing={2}>
                         {bestReviewedList.map(({ Book }, index) => (
                             <GridBeloved container item sm={4} md={4} lg={4} key={index} onClick={() => redirectCard(Book.idBook)}>
-                                <Grid item sm={6} md={6} lg={6}>
-                                    <Avatar className="avatarBeloved" variant="square" src={Book.photo} />
+                                <Grid item xs={12} sm={6} md={6} lg={6}>
+                                    <Avatar className="avatarBeloved" variant="square" src={Mask.formatBase64(Book.photo)} />
                                 </Grid>
-                                <Grid item sm={6} md={6} lg={6}>
+                                <Grid item xs={12} sm={12} md={6} lg={6}>
                                     <Card sx={{ minWidth: "100%", minHeight: "100%", justifyContent: "center" }}>
                                         <CardContent>
                                             <Typography variant="h5" component="div">
