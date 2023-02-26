@@ -100,7 +100,7 @@ function Home() {
                         <NewsCards container justifyContent="center">
                             <Grid item xs={12} sm={12} md={6} lg={6}>
                                 <Avatar
-                                    src={Mask.formatBase64(lastBooksList.lastBookOne.photo, 'webp') || Image.Book}
+                                    src={Mask.formatBase64(lastBooksList.lastBookOne.photo) || Image.Book}
                                     title='Imagem da capa do livro'
                                     className='avatar'
                                     variant='square'

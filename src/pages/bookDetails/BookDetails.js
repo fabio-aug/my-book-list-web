@@ -234,7 +234,7 @@ function BookDetails() {
                             <React.Fragment>
                                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                                     <MainBanner
-                                        image={bookData.photo ? Mask.formatBase64(bookData.photo, 'webp') : Image.Estante}
+                                        image={bookData.photo ? Mask.formatBase64(bookData.photo) : Image.Estante}
                                     />
                                 </Grid>
 

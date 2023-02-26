@@ -72,7 +72,7 @@ function UserAbout({
                                 <CardMedia
                                     className='user-image'
                                     title='Imagem do Usuário'
-                                    image={userData?.photo ? Mask.formatBase64(userData.photo, 'webp') : Image.User}
+                                    image={userData?.photo ? Mask.formatBase64(userData.photo) : Image.User}
                                 />
                                 <CardContent className='content'>
                                     <Typography

@@ -18,7 +18,7 @@ function BookCard({ book, showSynopsis = true, ...rest }) {
         <Card onClick={() => redirectCard(book.idBook)} {...rest}>
             <CardMedia
                 component='img'
-                image={book?.photo ? Mask.formatBase64(book.photo, 'webp') : Image.Book}
+                image={book?.photo ? Mask.formatBase64(book.photo) : Image.Book}
                 title='Imagem da capa do livro'
             />
             <CardContent>

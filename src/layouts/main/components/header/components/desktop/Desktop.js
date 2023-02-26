@@ -43,7 +43,7 @@ function Desktop() {
                     <Tooltip title="Opções">
                         <ButtonAvatar onClick={handleClick}>
                             <Avatar
-                                src={Mask.formatBase64(user.photo, 'webp')}
+                                src={Mask.formatBase64(user.photo)}
                                 className='avatar'
                                 alt="Foto do usuário"
                             />

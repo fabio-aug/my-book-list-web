@@ -10,6 +10,7 @@ import {
     CardContent
 } from '@mui/material';
 
+import { Mask } from 'modules';
 import { Image } from 'assets';
 import { useHistory } from 'hooks';
 import { Divider } from 'components';
@@ -72,7 +73,7 @@ function UserFriends({ friendshipList, page, pageCount, searchFriend, loading })
                                         <Card className='card' onClick={() => redirectCard(friend.idUser)}>
                                             <CardMedia
                                                 className='image'
-                                                image={friend?.photo ? friend.photo : Image.User}
+                                                image={friend?.photo ? Mask.formatBase64(friend.photo) : Image.User}
                                                 alt='Live from space album cover'
                                             />
                                             <CardContent>

@@ -40,7 +40,7 @@ function UserFavorites({ favoriteList, loading }) {
                 {loading ? loadingComponent() : (
                     <React.Fragment>
                         {favoriteList.length === 0 ? notFindFavorites() : (
-                            <Grid container justifyContent='center' spacing={2}>
+                            <Grid container spacing={2}>
                                 {favoriteList.map((favorite, idx) => (
                                     <Grid item xs={12} sm={6} md={4} xl={4} key={idx}>
                                         <BookCard

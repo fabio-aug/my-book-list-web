@@ -51,25 +51,25 @@ function UserProfile() {
     }, [currentUser]);
 
     useEffect(() => {
-        getUserDataById();
-        searchUserFriendship(1);
-        getFavoritesListByIduser();
-        getDashboardByIdUser();
-        verifyFriendship();
+        getUserDataById(idUser);
+        searchUserFriendship(1, idUser);
+        getFavoritesListByIduser(idUser);
+        getDashboardByIdUser(idUser);
+        verifyFriendship(idUser);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [idUser]);
 
-    function getUserDataById() {
-        if (!idUser) return;
+    function getUserDataById(id) {
+        if (!id) return;
         if (userLoading) return;
-        if (parseInt(currentUser.idUser) === parseInt(idUser)) {
+        if (parseInt(currentUser.idUser) === parseInt(id)) {
             setUserData(currentUser);
             return;
         };
 
         setUserLoading(true);
-        UserRequests.GetUserById(idUser).then((res) => {
+        UserRequests.GetUserById(id).then((res) => {
             if (res.status) {
                 setUserData(res.data);
             } else {
@@ -80,14 +80,14 @@ function UserProfile() {
         }).finally(() => setUserLoading(false));
     }
 
-    function getFavoritesListByIduser() {
-        if (!idUser) return;
+    function getFavoritesListByIduser(id) {
+        if (!id) return;
         if (favoriteLoading) return;
 
         setFavoriteLoading(true);
-        FavoriteRequests.GetFavoritesListByIduser(idUser).then((res) => {
-            if (res) {
-                const data = res.map((favorite) => (favorite.Book));
+        FavoriteRequests.GetFavoritesListByIduser(id).then((res) => {
+            if (res.status) {
+                const data = res.data.map((favorite) => (favorite.Book));
                 setFavoriteList(data);
             } else {
                 snackbar('Não foi possível os livros favoritos do usuário.').warning();
@@ -97,13 +97,13 @@ function UserProfile() {
         }).finally(() => setFavoriteLoading(false));
     }
 
-    function searchUserFriendship(page) {
-        if (!idUser) return;
+    function searchUserFriendship(page, id = idUser) {
+        if (!id) return;
         if (friendshipLoading) return;
-        if (friendshipPage === page) return;
+        if (friendshipPage === page && page !== 1) return;
 
         setFriendshipLoading(true);
-        FriendshipRequests.SearchUserFriendship(idUser, page, 4).then((res) => {
+        FriendshipRequests.SearchUserFriendship(id, page, 4).then((res) => {
             if (res.status) {
                 setFriendshipList(res.data.friendshipList);
                 setFriendshipPage(page);
@@ -116,12 +116,12 @@ function UserProfile() {
         }).finally(() => setFriendshipLoading(false));
     }
 
-    function getDashboardByIdUser() {
-        if (!idUser) return;
+    function getDashboardByIdUser(id) {
+        if (!id) return;
         if (reviewLoading) return;
 
         setReviewLoading(true);
-        ReviewRequests.DashboardByIdUser(idUser).then((res) => {
+        ReviewRequests.DashboardByIdUser(id).then((res) => {
             if (res.status) {
                 setReviewDashboard(res.data);
             } else {
@@ -132,13 +132,13 @@ function UserProfile() {
         }).finally(() => setReviewLoading(false));
     }
 
-    function verifyFriendship() {
-        if (!idUser) return;
-        if (parseInt(currentUser.idUser) === parseInt(idUser)) return;
+    function verifyFriendship(id) {
+        if (!id) return;
+        if (parseInt(currentUser.idUser) === parseInt(id)) return;
         if (verifyFriendshipLoading) return;
 
         setVerifyFriendshipLoading(true);
-        FriendshipRequests.VerifyFriendship(currentUser.idUser, idUser).then((res) => {
+        FriendshipRequests.VerifyFriendship(currentUser.idUser, id).then((res) => {
             if (res.status) {
                 setIsFriendShip(res.data);
             } else {

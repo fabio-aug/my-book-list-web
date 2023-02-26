@@ -66,7 +66,7 @@ function applyMask(mask, text) {
     return text;
 }
 
-function formatBase64(base64, format = 'png') {
+function formatBase64(base64, format = 'webp') {
     switch (format) {
         case 'webp':
             return `data:image/${format};base64,${base64}`;

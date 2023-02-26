@@ -50,7 +50,7 @@ function FormikImagePicker(props) {
                         alt="image-picker"
                         variant="square"
                         title={title}
-                        src={Mask.formatBase64(formik.values[name], 'webp')}
+                        src={Mask.formatBase64(formik.values[name])}
                         className='image'
                     >
                         Logo

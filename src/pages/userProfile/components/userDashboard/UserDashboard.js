@@ -4,7 +4,7 @@ import { Grid, Typography } from '@mui/material';
 import {
     ResponsiveContainer,
     BarChart, Bar, Cell,
-    XAxis, Tooltip, YAxis
+    XAxis, Tooltip
 } from 'recharts';
 
 import { Divider } from 'components';
@@ -76,9 +76,16 @@ function UserDashboard({ loading, dashboardData, ...rest }) {
                     <React.Fragment>
                         {dashboardData === null ? notFindDataComponent() : (
                             <ResponsiveContainer width='100%' height='100%'>
-                                <BarChart data={data} >
+                                <BarChart
+                                    data={data}
+                                    margin={{
+                                        top: 5,
+                                        right: 5,
+                                        left: 5,
+                                        bottom: 5,
+                                    }}
+                                >
                                     <XAxis dataKey='name' />
-                                    <YAxis stroke='#000000' />
                                     <Tooltip />
                                     <Bar
                                         dataKey='value'
