@@ -5,11 +5,13 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
 import { Grid, Box, Typography, IconButton } from '@mui/material';
+import Skeleton from '@mui/material/Skeleton';
+import Stack from '@mui/material/Stack';
 
 import { Image } from 'assets';
 import { Mask } from 'modules';
 import { useSnackbar, useAuth } from 'hooks';
-import { MainBanner } from './BookDetails.styles';
+import { MainBanner, SkeletonBookPhoto } from './BookDetails.styles';
 import { BookRequests, ReviewRequests, FavoriteRequests } from 'services';
 import { Page, Divider, ReviewCard, SkeletonCard, ReviewModal } from 'components';
 
@@ -205,7 +207,20 @@ function BookDetails() {
 
     function loadingComponent() {
         return (
-            <p>Carregando...</p>
+            <Grid container justifyContent='center' spacing={2} sx={{ mb: '40px' }}>
+                <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                    <SkeletonBookPhoto variant="rectangular" />
+                </Grid>
+                <Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                            <Skeleton variant="text" />
+                            <Skeleton variant="text" />
+                            <Skeleton variant="text" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
         );
     }
 
