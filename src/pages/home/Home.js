@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Button, CardContent, Card, Typography, Grid, CardActions, Avatar, Paper } from '@mui/material';
+
+import { Mask } from 'modules';
 import { Image } from 'assets';
 import { useSnackbar, useHistory } from 'hooks';
 import { Page, Divider, BookCard } from 'components';
@@ -7,12 +9,9 @@ import { MainBanner, MainContent, Beloved, NewsCards, GridBeloved } from './Home
 import { BookRequests, ReviewRequests } from "services";
 import { GlobalContext } from 'providers/global/GlobalProvider';
 
-
 function Home() {
-
-    const snackbar = useSnackbar();
-
     const history = useHistory();
+    const snackbar = useSnackbar();
 
     const [lastBooksList, setLastBooksList] = useState(null);
     const [loadingLastBooks, setLoadingLastBooks] = useState(false);
@@ -181,10 +180,10 @@ function Home() {
                                     <Card sx={{ minWidth: "100%", minHeight: "100%", justifyContent: "center" }}>
                                         <CardContent>
                                             <Typography variant="h5" component="div">
-                                                {Book.name}
+                                                {Mask.redutorString(Book.author, 25)}
                                             </Typography>
                                             <Typography variant="body2">
-                                                {Book.synopsis}
+                                                {Mask.redutorString(Book.synopsis, 65)}
                                             </Typography>
                                         </CardContent>
                                     </Card>

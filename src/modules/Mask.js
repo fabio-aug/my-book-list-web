@@ -113,6 +113,15 @@ function validateEmail(email = '') {
     return regex.test(email.toLowerCase());
 }
 
+function redutorString(str, length) {
+    if (!str) return '';
+    if (str.length > length - 1) {
+        return str.substring(0, length - 1).concat('...');
+    }
+    return str;
+}
+
+
 export {
     masks,
     regex,
@@ -124,5 +133,6 @@ export {
     normalizeStr,
     reverseString,
     validateEmail,
+    redutorString,
     upperFirstLetter
 };

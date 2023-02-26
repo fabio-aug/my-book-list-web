@@ -44,10 +44,11 @@ function BookList() {
 
         setLoading(true);
         BookRequests.SearchBook(searchTerm, page, 12).then((res) => {
-            if (res) {
+            if (res.status) {
+                const data = res.data
                 setPage(page);
-                setBookList(res.bookList);
-                setPageCount(res.pageCount);
+                setBookList(data.bookList);
+                setPageCount(data.pageCount);
             } else {
                 snackbar('Não foi possível buscar livro.').warning();
             }

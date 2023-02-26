@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Typography, CardContent } from '@mui/material';
 
 import { Image } from 'assets';
+import { Mask } from 'modules';
 import { useHistory } from 'hooks';
 import { Card, CardMedia } from './BookCard.styles';
 
@@ -25,21 +26,21 @@ function BookCard({ book, showSynopsis = true, ...rest }) {
                     variant='h5'
                     component='div'
                 >
-                    {book.name}
+                    {Mask.redutorString(book.name, 25)}
                 </Typography>
                 <Typography
                     variant='body2'
                     color='text.secondary'
                     gutterBottom={showSynopsis}
                 >
-                    {book.author}
+                    {Mask.redutorString(book.author, 25)}
                 </Typography>
                 {showSynopsis && (
                     <Typography
                         variant='body2'
                         color='text.secondary'
                     >
-                        {book.synopsis}
+                        {Mask.redutorString(book.synopsis, 65)}
                     </Typography>
                 )}
             </CardContent>
