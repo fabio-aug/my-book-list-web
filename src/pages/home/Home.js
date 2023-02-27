@@ -4,7 +4,7 @@ import { Button, CardContent, Card, Typography, Grid, CardActions, Avatar, Paper
 import { Mask } from 'modules';
 import { Image } from 'assets';
 import { useSnackbar, useHistory, useAuth } from 'hooks';
-import { Page, Divider, BookCard } from 'components';
+import { Page, Divider, BookCard, SkeletonCard } from 'components';
 import { MainBanner, MainContent, Beloved, NewsCards, GridBeloved, SubGrid } from './Home.style';
 import { BookRequests, ReviewRequests } from "services";
 import { GlobalContext } from 'providers/global/GlobalProvider';
@@ -72,6 +72,30 @@ function Home() {
 
     function redirectCard(idBook) {
         history.redirectTo(`/detalhes-do-livro/${idBook}`);
+    }
+
+    function loadingComponent() {
+        return (
+            <Grid container spacing={2} >
+                {new Array(3).fill(0).map((_, idx) => (
+                    <Grid item xs={12} sm={6} md={4} lg={4} key={idx}>
+                        <SkeletonCard height={165} />
+                    </Grid>
+                ))}
+            </Grid>
+        );
+    }
+
+    function notFindBooksWithReviews() {
+        return (
+            <Typography
+                variant='h5'
+                gutterBottom
+                component='div'
+            >
+                Nenhum livro na categoria foi encontrado no momento.
+            </Typography>
+        );
     }
 
     return (
@@ -172,15 +196,17 @@ function Home() {
                     <Divider title='Populares' />
                 </Grid>
 
-                {(!loadingMostReviewed && mostReviewedList.length !== 0) && (
+                {loadingMostReviewed ? loadingComponent() : (
                     <Grid item sm={12} md={12} lg={12} >
-                        <Grid container spacing={2}>
-                            {mostReviewedList.map((review, index) => (
-                                <Grid item sm={4} md={4} lg={4} key={index}>
-                                    <BookCard book={review.Book} />
-                                </Grid>
-                            ))}
-                        </Grid>
+                        {mostReviewedList.length === 0 ? notFindBooksWithReviews() : (
+                            <Grid container spacing={2}>
+                                {mostReviewedList.map((review, index) => (
+                                    <Grid item sm={4} md={4} lg={4} key={index}>
+                                        <BookCard book={review.Book} />
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        )}
                     </Grid>
                 )}
 
@@ -188,27 +214,31 @@ function Home() {
                     <Divider title='Os mais queridinhos' />
                 </Grid>
 
-                {(!loadingBestReviewed && bestReviewedList.length !== 0) && (
+                {loadingBestReviewed ? loadingComponent() : (
                     <Beloved container spacing={2}>
-                        {bestReviewedList.map(({ Book }, index) => (
-                            <GridBeloved container item sm={4} md={4} lg={4} key={index} onClick={() => redirectCard(Book.idBook)}>
-                                <Grid item xs={12} sm={12} md={6} lg={6}>
-                                    <Avatar className="avatarBeloved" variant="square" src={Mask.formatBase64(Book.photo)} />
-                                </Grid>
-                                <Grid item xs={12} sm={12} md={6} lg={6}>
-                                    <Card sx={{ minWidth: "100%", minHeight: "100%", justifyContent: "center" }}>
-                                        <CardContent>
-                                            <Typography variant="h5" component="div">
-                                                {Mask.redutorString(Book.name, 25)}
-                                            </Typography>
-                                            <Typography variant="body2">
-                                                {Mask.redutorString(Book.synopsis, 65)}
-                                            </Typography>
-                                        </CardContent>
-                                    </Card>
-                                </Grid>
-                            </GridBeloved>
-                        ))}
+                        {bestReviewedList.length === 0 ? notFindBooksWithReviews() : (
+                            <>
+                            {bestReviewedList.map(({ Book }, index) => (
+                                    <GridBeloved container item sm={4} md={4} lg={4} key={index} onClick={() => redirectCard(Book.idBook)}>
+                                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                                            <Avatar className="avatarBeloved" variant="square" src={Mask.formatBase64(Book.photo)} />
+                                        </Grid>
+                                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                                            <Card sx={{ minWidth: "100%", minHeight: "100%", justifyContent: "center" }}>
+                                                <CardContent>
+                                                    <Typography variant="h5" component="div">
+                                                        {Mask.redutorString(Book.name, 25)}
+                                                    </Typography>
+                                                    <Typography variant="body2">
+                                                        {Mask.redutorString(Book.synopsis, 65)}
+                                                    </Typography>
+                                                </CardContent>
+                                            </Card>
+                                        </Grid>
+                                    </GridBeloved>
+                                ))}
+                            </>
+                            )}
                     </Beloved>
                 )}
             </MainContent>

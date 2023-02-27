@@ -4,14 +4,16 @@ import { Typography, Avatar, Box, IconButton, useMediaQuery } from '@mui/materia
 
 import { Header } from './MainHeader.styles';
 import { Mobile, Desktop } from './components';
+import { useHistory} from 'hooks';
 
 function MainHeader() {
     const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+    const history = useHistory();
 
     return (
         <Header>
             <Box className='box-itens'>
-                <IconButton>
+                <IconButton onClick={() => history.redirectTo('/home')}>
                     <Avatar
                         className='avatar'
                         alt='my-book-list-icon'
