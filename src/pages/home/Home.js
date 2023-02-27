@@ -1,17 +1,19 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Button, CardContent, Card, Typography, Grid, CardActions, Avatar, Paper} from '@mui/material';
+import { Button, CardContent, Card, Typography, Grid, CardActions, Avatar, Paper, useMediaQuery } from '@mui/material';
 
 import { Mask } from 'modules';
 import { Image } from 'assets';
-import { useSnackbar, useHistory } from 'hooks';
+import { useSnackbar, useHistory, useAuth } from 'hooks';
 import { Page, Divider, BookCard } from 'components';
-import { MainBanner, MainContent, Beloved, NewsCards, GridBeloved,SubGrid} from './Home.style';
+import { MainBanner, MainContent, Beloved, NewsCards, GridBeloved, SubGrid } from './Home.style';
 import { BookRequests, ReviewRequests } from "services";
 import { GlobalContext } from 'providers/global/GlobalProvider';
 
 function Home() {
     const history = useHistory();
     const snackbar = useSnackbar();
+    const { isAuthenticated } = useAuth();
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
     const [lastBooksList, setLastBooksList] = useState(null);
     const [loadingLastBooks, setLoadingLastBooks] = useState(false);
@@ -82,12 +84,14 @@ function Home() {
                     <Typography className="subtitle" variant="h3" component="h3">
                         Listas e livros para todos os gostos
                     </Typography>
-                     <SubGrid item md={12} className="subscribe">
-                        <Paper variant="outlined" className="paper">
-                            Participe da nossa comunidade
-                            <Button className="button" variant='contained' onClick={() => setRegister(true)}> Cadastre-se </Button>
-                        </Paper>
-                    </SubGrid>
+                    {!isAuthenticated && (
+                        <SubGrid item md={12} className="subscribe">
+                            <Paper variant="outlined" className="paper">
+                                Participe da nossa comunidade
+                                <Button className="button" variant='contained' onClick={() => setRegister(true)}> Cadastre-se </Button>
+                            </Paper>
+                        </SubGrid>
+                    )}
                 </Grid>
             </MainBanner>
             <MainContent container spacing={2}>
@@ -98,60 +102,67 @@ function Home() {
 
                 {(!loadingLastBooks && lastBooksList !== null) && (
                     <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <NewsCards container justifyContent="center">
-                            <Grid item xs={12} sm={12} md={6} lg={6}>
-                                <Avatar
-                                    src={Mask.formatBase64(lastBooksList.lastBookOne.photo) || Image.Book}
-                                    title='Imagem da capa do livro'
-                                    className='avatar'
-                                    variant='square'
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={6} lg={6}>
-                                <Card sx={{ minWidth: 275, minHeight: 275 }}>
-                                    <CardContent>
-                                        <Typography variant="h1" className="nameBook">
-                                            {Mask.redutorString(lastBooksList.lastBookOne.name, 35)}
-                                        </Typography>
-                                        <Typography sx={{ mb: 1.5 }} color="text.secondary" className="authorBook">
-                                            {Mask.redutorString(lastBooksList.lastBookOne.author, 30)}
-                                        </Typography>
-                                        <Typography variant="body2" className="synopsisBook">
-                                            {Mask.redutorString(lastBooksList.lastBookOne.synopsis, 200)}
-                                        </Typography>
-                                    </CardContent>
+                        <NewsCards container justifyContent="center" spacing={isMobile ? 2 : 0}>
+                            <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                                <Grid container>
+                                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                                        <Avatar
+                                            src={Mask.formatBase64(lastBooksList.lastBookOne.photo) || Image.Book}
+                                            title='Imagem da capa do livro'
+                                            className='avatar'
+                                            variant='square'
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                                        <Card sx={{ minWidth: 275, minHeight: 275 }}>
+                                            <CardContent>
+                                                <Typography variant="h1" className="nameBook">
+                                                    {Mask.redutorString(lastBooksList.lastBookOne.name, 35)}
+                                                </Typography>
+                                                <Typography sx={{ mb: 1.5 }} color="text.secondary" className="authorBook">
+                                                    {Mask.redutorString(lastBooksList.lastBookOne.author, 30)}
+                                                </Typography>
+                                                <Typography variant="body2" className="synopsisBook">
+                                                    {Mask.redutorString(lastBooksList.lastBookOne.synopsis, 200)}
+                                                </Typography>
+                                            </CardContent>
 
-                                    <CardActions>
-                                        <Button size="small" onClick={() => redirectCard(lastBooksList.lastBookOne.idBook)}>Saiba mais</Button>
-                                    </CardActions>
-
-                                </Card>
+                                            <CardActions>
+                                                <Button size="small" onClick={() => redirectCard(lastBooksList.lastBookOne.idBook)}>Saiba mais</Button>
+                                            </CardActions>
+                                        </Card>
+                                    </Grid>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12} sm={12} md={6} lg={6}>
-                                <Card sx={{ minWidth: 275, minHeight: 275 }}>
-                                    <CardContent>
-                                        <Typography variant="h1" className="nameBook">
-                                            {Mask.redutorString(lastBooksList.lastBookTwo.name, 35)}
-                                        </Typography>
-                                        <Typography sx={{ mb: 1.5 }} color="text.secondary" className="authorBook">
-                                            {Mask.redutorString(lastBooksList.lastBookTwo.author, 30)}
-                                        </Typography>
-                                        <Typography variant="body2" className="synopsisBook">
-                                            {Mask.redutorString(lastBooksList.lastBookTwo.synopsis, 200)}
-                                        </Typography>
-                                    </CardContent>
-                                    <CardActions>
-                                        <Button size="small" onClick={() => redirectCard(lastBooksList.lastBookTwo.idBook)}>Saiba mais</Button>
-                                    </CardActions>
-                                </Card>
-                            </Grid>
-                            <Grid item xs={12} sm={12} md={6} lg={6}>
-                                <Avatar
-                                    src={Mask.formatBase64(lastBooksList.lastBookTwo.photo) || Image.Book}
-                                    title='Imagem da capa do livro'
-                                    className='avatar'
-                                    variant='square'
-                                />
+                            <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                                <Grid container>
+                                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                                        <Card sx={{ minWidth: 275, minHeight: 275 }}>
+                                            <CardContent>
+                                                <Typography variant="h1" className="nameBook">
+                                                    {Mask.redutorString(lastBooksList.lastBookTwo.name, 35)}
+                                                </Typography>
+                                                <Typography sx={{ mb: 1.5 }} color="text.secondary" className="authorBook">
+                                                    {Mask.redutorString(lastBooksList.lastBookTwo.author, 30)}
+                                                </Typography>
+                                                <Typography variant="body2" className="synopsisBook">
+                                                    {Mask.redutorString(lastBooksList.lastBookTwo.synopsis, 200)}
+                                                </Typography>
+                                            </CardContent>
+                                            <CardActions>
+                                                <Button size="small" onClick={() => redirectCard(lastBooksList.lastBookTwo.idBook)}>Saiba mais</Button>
+                                            </CardActions>
+                                        </Card>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                                        <Avatar
+                                            src={Mask.formatBase64(lastBooksList.lastBookTwo.photo) || Image.Book}
+                                            title='Imagem da capa do livro'
+                                            className='avatar'
+                                            variant='square'
+                                        />
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </NewsCards>
                     </Grid>

@@ -26,10 +26,9 @@ export const NewsCards = styled(Grid)(({theme}) =>({
     ".avatar":{
         minWidth: '100%', 
         minHeight: '100%',
-/*         [theme.breakpoints.down('md')]: {
-            minWidth: '275px',
+        [theme.breakpoints.down('md')]: {
             minHeight: '275px'
-        } */
+        }
     },
     ".nameBook":{
         fontSize: "25px",
