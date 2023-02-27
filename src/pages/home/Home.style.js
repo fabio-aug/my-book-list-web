@@ -22,10 +22,14 @@ export const MainBanner = styled(Grid)(({image, theme}) =>({
     }
 }));
 
-export const NewsCards = styled(Grid)(() =>({
+export const NewsCards = styled(Grid)(({theme}) =>({
     ".avatar":{
         minWidth: '100%', 
-        minHeight: 275
+        minHeight: '100%',
+/*         [theme.breakpoints.down('md')]: {
+            minWidth: '275px',
+            minHeight: '275px'
+        } */
     },
     ".nameBook":{
         fontSize: "25px",
@@ -51,14 +55,10 @@ export const Beloved = styled(Grid)(({theme})=>({
     ".avatarBeloved":{
         minWidth: "100%",
         minHeight:"100%",
-        [theme.breakpoints.down('md')]: {
-            minWidth: '200px',
-            minHeight: '200px'
-        },
-        [theme.breakpoints.down('sm')]: {
+         [theme.breakpoints.down('md')]: {
             minWidth: '100%',
             minHeight: '200px'
-        }
+        } 
     }
 }))
 

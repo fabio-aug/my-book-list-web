@@ -181,7 +181,7 @@ function Home() {
                     <Beloved container spacing={2}>
                         {bestReviewedList.map(({ Book }, index) => (
                             <GridBeloved container item sm={4} md={4} lg={4} key={index} onClick={() => redirectCard(Book.idBook)}>
-                                <Grid item xs={12} sm={6} md={6} lg={6}>
+                                <Grid item xs={12} sm={12} md={6} lg={6}>
                                     <Avatar className="avatarBeloved" variant="square" src={Mask.formatBase64(Book.photo)} />
                                 </Grid>
                                 <Grid item xs={12} sm={12} md={6} lg={6}>
