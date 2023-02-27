@@ -6,7 +6,7 @@ import { MainHeader, MainFooter } from './components';
 function MainLayout() {
     return (
         <React.Fragment>
-            <header>
+            <header style={{ borderBottom: '1px solid #cccccc' }}>
                 <MainHeader />
             </header>
             <main>

@@ -7,9 +7,8 @@ import {
     CardMedia,
     Typography,
     CardContent,
-    Button
+    Button, Box
 } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
 import { LoadingButton } from '@mui/lab';
 import { useParams } from 'react-router-dom';
 
@@ -91,32 +90,36 @@ function UserAbout({
                                     >
                                         {userData?.nickname || '--'}
                                     </Typography>
-                                    {isEditButton ? (
+                                    <Box sx={{ maxWidth: '50%' }}>
+                                        {isEditButton ? (
+                                            <Button
+                                                onClick={() => openModal(true)}
+                                                variant='contained'
+                                                fullWidth
+                                            >
+                                                Editar perfil
+                                            </Button>
+                                        ) : (
+                                            <LoadingButton
+                                                variant='contained'
+                                                disabled={isFriendShipLoading}
+                                                loading={isFriendShipLoading}
+                                                onClick={() => isFriendShip ? deleteFriend() : addFriend()}
+                                                fullWidth
+                                            >
+                                                {isFriendShip ? 'Seguindo' : 'Seguir'}
+                                            </LoadingButton>
+                                        )}
+
                                         <Button
-                                            onClick={() => openModal(true)}
+                                            onClick={() => history.redirectTo(`/reviews-do-usuario/${idUser}`)}
                                             variant='contained'
-                                            endIcon={<EditIcon />}
+                                            className='Btn'
+                                            fullWidth
                                         >
-                                            Editar perfil
+                                            Reviews
                                         </Button>
-                                    ) : (
-                                        <LoadingButton
-                                            variant='contained'
-                                            disabled={isFriendShipLoading}
-                                            loading={isFriendShipLoading}
-                                            onClick={() => isFriendShip ? deleteFriend() : addFriend()}
-                                        >
-                                            {isFriendShip ? 'Seguindo' : 'Seguir'}
-                                        </LoadingButton>
-                                    )}
-                                    
-                                    <Button
-                                        onClick={() => history.redirectTo(`/reviews-do-usuario/${idUser}`)}
-                                        variant='contained'
-                                        className='Btn'
-                                    >
-                                        Reviews
-                                    </Button>
+                                    </Box>
                                 </CardContent>
                             </Card>
                         )}

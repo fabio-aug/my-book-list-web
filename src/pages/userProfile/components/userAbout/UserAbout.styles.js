@@ -17,6 +17,6 @@ export const Wrapper = styled(Grid)(() => ({
     },
 
     '.Btn': {
-        margin: 10,
+        marginTop: 10,
     }
 }));
