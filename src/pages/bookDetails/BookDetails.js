@@ -10,7 +10,7 @@ import { Grid, Box, Typography, IconButton } from '@mui/material';
 import { Image } from 'assets';
 import { Mask } from 'modules';
 import { useSnackbar, useAuth } from 'hooks';
-import { MainBanner, SkeletonBookPhoto } from './BookDetails.styles';
+import { MainBanner } from './BookDetails.styles';
 import { BookRequests, ReviewRequests, FavoriteRequests } from 'services';
 import { Page, Divider, ReviewCard, SkeletonCard, ReviewModal } from 'components';
 
@@ -207,20 +207,38 @@ function BookDetails() {
 
     function loadingComponent() {
         return (
-            <Grid container justifyContent='center' spacing={2} sx={{ mb: '40px' }}>
+            <React.Fragment>
                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                    <SkeletonBookPhoto variant="rectangular" />
+                    <Skeleton animation="wave" variant="rectangular" height={300} />
                 </Grid>
+
                 <Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                            <Skeleton variant="text" />
-                            <Skeleton variant="text" />
-                            <Skeleton variant="text" />
+                            <Skeleton animation="wave" variant="text" />
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography variant='h5' gutterBottom>
+                                    <Skeleton animation="wave" variant="text" />
+                                </Typography>
+                                <Typography variant='h5' gutterBottom>
+                                    <Skeleton animation="wave" variant="text" />
+                                </Typography>
+                                <Typography variant='h5' gutterBottom>
+                                    <Skeleton animation="wave" variant="text" />
+                                </Typography>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                            <Skeleton animation="wave" variant="text" />
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                            {loadingLastReviewsComponent()}
                         </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
+            </React.Fragment>
         );
     }
 

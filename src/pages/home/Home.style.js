@@ -1,6 +1,6 @@
-import {styled,Grid} from '@mui/material';
+import { styled, Grid } from '@mui/material';
 
-export const MainBanner = styled(Grid)(({image, theme}) =>({
+export const MainBanner = styled(Grid)(({ image, theme }) => ({
     width: "100%",
     height: 500,
     backgroundImage: `url(${image})`,
@@ -8,56 +8,54 @@ export const MainBanner = styled(Grid)(({image, theme}) =>({
     marginBottom: "15px",
     display: 'flex',
     alignContent: "center",
-    ".maintitle":{
+    ".maintitle": {
         color: theme.palette.primary.contrastText,
         letterSpacing: "2px",
         fontSize: "80px",
         fontWeight: "100px",
         textAlign: 'center'
     },
-    ".subtitle":{
+    ".subtitle": {
         color: theme.palette.secondary.main,
         fontSize: "30px",
         textAlign: 'center'
     }
 }));
 
-export const NewsCards = styled(Grid)(({theme}) =>({
-    ".avatar":{
-        minWidth: '100%', 
+export const NewsCards = styled(Grid)(({ theme }) => ({
+    ".avatar": {
+        minWidth: '100%',
         minHeight: '100%',
         [theme.breakpoints.down('md')]: {
             minHeight: '275px'
         }
     },
-    ".nameBook":{
+    ".nameBook": {
         fontSize: "25px",
         marginBottom: "4px"
     },
-    ".authorBook":{
+    ".authorBook": {
         fontSize: "18px"
     },
-    ".synopsisBook":{
+    ".synopsisBook": {
         fontSize: "20px"
     }
 }));
 
-export const MainContent = styled(Grid)(()=>({
+export const MainContent = styled(Grid)(() => ({
     minWidth: "80%",
-    maxWidth:"80%"
+    maxWidth: "80%"
 }))
 
-export const Beloved = styled(Grid)(({theme})=>({
-    marginTop: "15px",
-    marginBottom: "20px",
-    marginLeft:"10px",
-    ".avatarBeloved":{
+export const Beloved = styled(Grid)(({ theme }) => ({
+    height: "100%",
+    ".avatarBeloved": {
         minWidth: "100%",
-        minHeight:"100%",
-         [theme.breakpoints.down('md')]: {
+        minHeight: "100%",
+        [theme.breakpoints.down('md')]: {
             minWidth: '100%',
             minHeight: '200px'
-        } 
+        }
     }
 }))
 
@@ -68,15 +66,15 @@ export const GridBeloved = styled(Grid)(() => ({
     }
 }))
 
-export const SubGrid = styled(Grid)(({theme}) => ({
-    width: '100%', 
+export const SubGrid = styled(Grid)(({ theme }) => ({
+    width: '100%',
     height: '100%',
     justifyContent: 'space-around',
     alignItems: 'center',
     display: 'flex',
     marginTop: "50px",
     fontSize: "20px",
-    ".paper":{
+    ".paper": {
         backgroundColor: 'rgba(0, 0, 0, 0.8)',
         color: theme.palette.primary.contrastText,
         borderRadius: '5px',
@@ -84,11 +82,10 @@ export const SubGrid = styled(Grid)(({theme}) => ({
         fontWeight: 600,
         marginLeft: '10px'
     },
-    ".button":{
+    ".button": {
         marginLeft: '10px',
         backgroundColor: theme.palette.primary.contrastText,
         color: theme.palette.primary.main,
         fontWeight: 600
     }
-
-}))
+}));

@@ -43,7 +43,10 @@ function ReviewModal({ isCreate, open, setOpen, idUser, idBook, returnFunction, 
             }
         }).catch(() => {
             snackbar('Erro ao criar review!').error();
-        }).finally(() => actions.setSubmitting(false));
+        }).finally(() => {
+            closeModal(true);
+            actions.setSubmitting(false);
+        });
     }
 
     function update(values, actions) {
@@ -65,7 +68,10 @@ function ReviewModal({ isCreate, open, setOpen, idUser, idBook, returnFunction, 
             }
         }).catch(() => {
             snackbar('Erro ao atualizar review!').error();
-        }).finally(() => actions.setSubmitting(false));
+        }).finally(() => {
+            closeModal(true);
+            actions.setSubmitting(false);
+        });
     }
 
     function handleSubmit(values, actions) {
@@ -76,8 +82,8 @@ function ReviewModal({ isCreate, open, setOpen, idUser, idBook, returnFunction, 
         }
     }
 
-    function closeModal() {
-        if (formik.isSubmitting) return;
+    function closeModal(close = false) {
+        if (formik.isSubmitting && !close) return;
 
         setOpen(false);
         formik.resetForm();

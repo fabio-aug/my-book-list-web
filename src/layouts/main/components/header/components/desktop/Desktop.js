@@ -59,7 +59,10 @@ function Desktop() {
                         onClose={handleClose}
                         open={Boolean(anchorEl)}
                     >
-                        <MenuItem onClick={() => history.redirectTo(`/perfil-do-usuario/${user.idUser}`)}>
+                        <MenuItem onClick={() => {
+                            handleClose();
+                            history.redirectTo(`/perfil-do-usuario/${user.idUser}`)
+                        }}>
                             <Typography textAlign="center">Perfil</Typography>
                         </MenuItem>
                         <MenuItem onClick={signOutButton}>
