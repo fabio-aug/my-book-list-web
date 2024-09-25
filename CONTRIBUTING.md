@@ -17,6 +17,8 @@ Se você encontrou um bug, por favor, abra uma issue descrevendo:
 
 Se você tem uma ideia para melhorar o projeto ou deseja adicionar uma nova funcionalidade:
 
+Obs: Antes de sugerir uma melhoria, certifique-se de que ela já não esteja em nossos [Objetivos Futuros](FUTURE_OBJECTIVES.md).
+
 - Abra uma issue com uma descrição clara da sua proposta.
 - Explique por que essa melhoria ou funcionalidade é importante.
 - Ofereça-se para ajudar a implementá-la, se puder.
