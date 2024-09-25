@@ -6,6 +6,7 @@
 - [Luana Assis Silva](https://github.com/luanaassis)
 - [Vinícius Dalcantoni Horta Barbosa](https://github.com/ViniDalca)
 - [Bruno de Oliveira Silva](https://github.com/Brunodev77)
+- [Guilherme Luis Soares Santos](https://github.com/SiegLander)
 - Matheus Santiago de Andrade Marques
 
 ## Introdução 💡
